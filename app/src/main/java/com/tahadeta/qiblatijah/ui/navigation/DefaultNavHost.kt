@@ -31,8 +31,8 @@ fun DefaultNavHost(
                 val selectedWidget by dataStore.getWidgetName.collectAsState(initial = null)
 
                 when(selectedWidget){
-                    Widgets.MinimalCompass.name ->
-                        MinimalCompass(
+                    Widgets.QiblaCompass.name ->
+                        QiblaCompass(
                             degrees = degrees,
                             canvasSize = 300.dp
                         )
