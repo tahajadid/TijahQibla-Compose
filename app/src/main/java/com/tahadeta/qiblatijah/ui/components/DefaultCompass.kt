@@ -15,9 +15,8 @@ import com.tahadeta.qiblatijah.utils.compressUtils.getRotation
 fun DefaultCompass(
     modifier: Modifier = Modifier,
     degrees: Int = 360,
-    variantWidget: @Composable (rotationAngle: Float) -> Unit
+    variantWidget: @Composable (rotationAngle: Float) -> Unit,
 ) {
-
     // this keeps last rotation
     val (lastRotation, setLastRotation) = remember { mutableStateOf(0) }
 
@@ -25,15 +24,16 @@ fun DefaultCompass(
 
     setLastRotation(newRotation)
 
-    //negative value to rotate in opposite direction
+    // negative value to rotate in opposite direction
     val targetRotation = -(newRotation - COMPASS_CENTER_TOP_POSITION)
 
     val rotationAngle by animateFloatAsState(
         targetValue = targetRotation.toFloat(),
-        animationSpec = tween(
-            durationMillis = 300,
-            easing = LinearEasing
-        )
+        animationSpec =
+            tween(
+                durationMillis = 300,
+                easing = LinearEasing,
+            ),
     )
 
     variantWidget(rotationAngle)
