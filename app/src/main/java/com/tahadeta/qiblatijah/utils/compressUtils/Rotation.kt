@@ -1,6 +1,9 @@
 package com.tahadeta.qiblatijah.utils.compressUtils
 
-fun getRotation(degrees: Int, lastRotation: Int): Int {
+fun getRotation(
+    degrees: Int,
+    lastRotation: Int,
+): Int {
     var newRotation = lastRotation // newRotation will be updated in proper way
     // last rotation converted to range [-359; 359]
     val modLast = if (lastRotation > 0) lastRotation % 360 else 360 - (-lastRotation % 360)
@@ -15,15 +18,14 @@ fun getRotation(degrees: Int, lastRotation: Int): Int {
         val forward = if (degrees > modLast) degrees - modLast else 360 - modLast + degrees
 
         // update newRotation so it will change rotation in the shortest way
-        newRotation = if (backward < forward) {
-
-            // backward rotation is shorter
-            lastRotation - backward
-        } else {
-
-            // forward rotation is shorter (or they are equal)
-            lastRotation + forward
-        }
+        newRotation =
+            if (backward < forward) {
+                // backward rotation is shorter
+                lastRotation - backward
+            } else {
+                // forward rotation is shorter (or they are equal)
+                lastRotation + forward
+            }
     }
     return newRotation
 }
