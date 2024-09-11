@@ -10,8 +10,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.tahadeta.qiblatijah.ui.components.QiblaCompass
+import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
+import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,29 +24,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             QiblaTijahTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                HomeScreen(
+                    degrees = 90,
+                    isMagneticFieldSensorPresent = true,
+                ) {
+                    QiblaCompass(
+                        degrees = 90,
+                        canvasSize = 300.dp
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    QiblaTijahTheme {
-        Greeting("Android")
     }
 }

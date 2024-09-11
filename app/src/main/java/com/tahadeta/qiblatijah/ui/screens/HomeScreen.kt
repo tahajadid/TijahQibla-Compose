@@ -14,7 +14,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.ui.components.CustomDialogAlert
-import com.tahadeta.qiblatijah.ui.components.MinimalCompass
+import com.tahadeta.qiblatijah.ui.components.QiblaCompass
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.utils.compressUtils.getDirectionsLabel
 
@@ -94,7 +93,7 @@ fun CompassAnimationPreview() {
             true,
             {},
             {
-                MinimalCompass(
+                QiblaCompass(
                     degrees = 20,
                     canvasSize = 300.dp
                 )
