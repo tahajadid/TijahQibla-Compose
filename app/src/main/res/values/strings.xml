@@ -1,6 +1,5 @@
-<resources>
-    <string name="app_name">Qibla Tijah</string>
-    <string name="app_name">Rolling Compass</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="DuplicateDefinition">Qibla Tijah</string>
 
     <string name="north">N</string>
     <string name="northeast">NE</string>
