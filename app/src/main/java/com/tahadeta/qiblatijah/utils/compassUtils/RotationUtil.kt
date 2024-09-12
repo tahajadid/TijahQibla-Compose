@@ -1,4 +1,4 @@
-package com.tahadeta.qiblatijah.utils.compressUtils
+package com.tahadeta.qiblatijah.utils.compassUtils
 
 fun getRotation(
     degrees: Int,

@@ -13,7 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import com.tahadeta.qiblatijah.ui.components.QiblaCompass
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
-import com.tahadeta.qiblatijah.utils.compressUtils.getTheRightImage
+import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity(), SensorEventListener {

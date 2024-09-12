@@ -1,4 +1,4 @@
-package com.tahadeta.qiblatijah.utils.compressUtils
+package com.tahadeta.qiblatijah.utils.compassUtils
 
 import android.content.Context
 import com.tahadeta.qiblatijah.R
@@ -17,13 +17,4 @@ fun getDirectionsLabel(
         in 248..292 -> context.getString(R.string.west)
         in 293..337 -> context.getString(R.string.northwest)
         else -> ""
-    }
-
-
-fun getTheRightImage(
-    degrees: Int,
-    ): Int =
-    when (degrees) {
-        in 91..95 -> R.drawable.correct_compass
-        else -> R.drawable.default_compass
     }

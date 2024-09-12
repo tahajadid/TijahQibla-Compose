@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -24,10 +23,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tahadeta.qiblatijah.R
-import com.tahadeta.qiblatijah.ui.components.CustomDialogAlert
 import com.tahadeta.qiblatijah.ui.components.QiblaCompass
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
-import com.tahadeta.qiblatijah.utils.compressUtils.getDirectionsLabel
+import com.tahadeta.qiblatijah.utils.compassUtils.getDirectionsLabel
 
 @Composable
 fun HomeScreen(
