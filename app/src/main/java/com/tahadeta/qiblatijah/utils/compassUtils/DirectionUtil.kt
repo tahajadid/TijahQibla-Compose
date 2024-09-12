@@ -1,4 +1,4 @@
-package com.tahadeta.qiblatijah.utils.compressUtils
+package com.tahadeta.qiblatijah.utils.compassUtils
 
 import android.content.Context
 import com.tahadeta.qiblatijah.R

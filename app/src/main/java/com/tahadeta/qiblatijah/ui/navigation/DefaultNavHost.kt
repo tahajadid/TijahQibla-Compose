@@ -40,7 +40,6 @@ fun DefaultNavHost(
 
                 QiblaCompass(
                     degrees = degrees,
-                    canvasSize = 300.dp
                 )
 
                 /*

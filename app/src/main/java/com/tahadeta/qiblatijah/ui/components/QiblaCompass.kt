@@ -1,8 +1,7 @@
 package com.tahadeta.qiblatijah.ui.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,31 +16,28 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun QiblaCompass(
     modifier: Modifier = Modifier,
-    canvasSize: Dp = 300.dp,
     degrees: Int = 193,
+    imageRrc: Int = 0,
 ) {
     DefaultCompass(
         modifier = modifier,
         degrees = degrees,
     ) { rotationAngle ->
-        Box(
-            modifier =
-                Modifier
-                    .size(canvasSize),
-            contentAlignment = Alignment.Center,
+
+        Column(
+            modifier = Modifier,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
             Image(
-                painter = painterResource(id = R.drawable.default_compass),
+                painter = painterResource(id = imageRrc),
                 contentDescription = "Compass Needle",
                 modifier = Modifier.rotate(rotationAngle),
             )
@@ -53,6 +49,7 @@ fun QiblaCompass(
                 style = MaterialTheme.typography.h1,
             )
         }
+
     }
 }
 

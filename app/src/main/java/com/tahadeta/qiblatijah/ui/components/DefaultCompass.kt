@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.tahadeta.qiblatijah.utils.Constants.COMPASS_CENTER_TOP_POSITION
-import com.tahadeta.qiblatijah.utils.compressUtils.getRotation
+import com.tahadeta.qiblatijah.utils.compassUtils.getRotation
 
 @Composable
 fun DefaultCompass(
