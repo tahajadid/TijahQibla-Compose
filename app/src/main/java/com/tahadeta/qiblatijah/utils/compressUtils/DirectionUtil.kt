@@ -18,3 +18,12 @@ fun getDirectionsLabel(
         in 293..337 -> context.getString(R.string.northwest)
         else -> ""
     }
+
+
+fun getTheRightImage(
+    degrees: Int,
+    ): Int =
+    when (degrees) {
+        in 91..95 -> R.drawable.correct_compass
+        else -> R.drawable.default_compass
+    }

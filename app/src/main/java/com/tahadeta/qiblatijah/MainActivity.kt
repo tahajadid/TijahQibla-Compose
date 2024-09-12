@@ -10,10 +10,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.unit.dp
 import com.tahadeta.qiblatijah.ui.components.QiblaCompass
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
+import com.tahadeta.qiblatijah.utils.compressUtils.getTheRightImage
 import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity(), SensorEventListener {
@@ -26,6 +26,9 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     private val mOrientationAngles = FloatArray(3)
 
     private val degrees: MutableState<Int> = mutableStateOf(0)
+
+    // default image
+    private val imageRrc: MutableState<Int> = mutableStateOf(R.drawable.default_compass)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,12 +44,12 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         setContent {
             QiblaTijahTheme {
                 HomeScreen(
-                    degrees = 90,
+                    degrees = degrees.value,
                     isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
                 ) {
                     QiblaCompass(
-                        degrees = 90,
-                        canvasSize = 300.dp
+                        degrees = degrees.value,
+                        imageRrc = getTheRightImage(degrees.value)
                     )
                 }
             }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -45,7 +46,7 @@ fun HomeScreen(
                 horizontalArrangement = Arrangement.End
             ) {
                 Icon(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(24.dp).size(40.dp)
                         .clickable {
                             onMenuClick()
                         },
@@ -55,29 +56,30 @@ fun HomeScreen(
             }
         }
     ) { padding ->
-        Surface {
-            Column(
-                modifier = modifier.fillMaxSize().padding(padding),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
 
-                Text(
-                    modifier = Modifier.padding(16.dp),
-                    text = getDirectionsLabel(LocalContext.current, degrees),
-                    color = MaterialTheme.colors.onBackground,
-                    style = MaterialTheme.typography.h2
-                )
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                modifier = Modifier.padding(padding),
+                text = getDirectionsLabel(LocalContext.current, degrees),
+                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.h2
+            )
 
-                compassComposable()
+            compassComposable()
 
-                if (!isMagneticFieldSensorPresent) {
-                    CustomDialogAlert(
-                        text = stringResource(R.string.missing_sensor_error)
-                    )
-                }
+            /*
+             if (!isMagneticFieldSensorPresent) {
+                 CustomDialogAlert(
+                     text = stringResource(R.string.missing_sensor_error)
+                 )
+             }
 
-            }
+             */
+
         }
     }
 }
@@ -88,14 +90,13 @@ fun HomeScreen(
 fun CompassAnimationPreview() {
     QiblaTijahTheme {
         HomeScreen(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier,
             20,
             true,
             {},
             {
                 QiblaCompass(
                     degrees = 20,
-                    canvasSize = 300.dp
                 )
             }
         )
