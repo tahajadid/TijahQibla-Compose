@@ -8,6 +8,7 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.tahadeta.qiblatijah.ui.components.QiblaCompass
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     private val degrees: MutableState<Int> = mutableStateOf(0)
 
     // default image
-    private val imageRrc: MutableState<Int> = mutableStateOf(R.drawable.default_compass)
+    private val imageRrc: MutableState<Int> = mutableStateOf(R.drawable.default_compass_new)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         val isMagneticFieldSensorPresent =
             sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null
 
-        //enableEdgeToEdge()
+        enableEdgeToEdge()
 
         setContent {
             QiblaTijahTheme {
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
                 ) {
                     QiblaCompass(
                         degrees = degrees.value,
-                        imageRrc = getTheRightImage(degrees.value)
+                        imageSrc = getTheRightImage(degrees.value)
                     )
                 }
             }
