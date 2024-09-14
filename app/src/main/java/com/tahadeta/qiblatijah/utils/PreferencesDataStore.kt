@@ -16,6 +16,7 @@ class PreferencesDataStore (val context: Context) {
 
     companion object {
         val WIDGET_KEY = stringPreferencesKey("selected_widget")
+        val LANG_SELECTED = stringPreferencesKey("selected_widget")
     }
 
     val getWidgetName: Flow<String?> = context.dataStore.data
@@ -23,9 +24,20 @@ class PreferencesDataStore (val context: Context) {
             preferences[WIDGET_KEY]
         }
 
+    val getLanguageSelected: Flow<String?> = context.dataStore.data
+        .map { preferences ->
+            preferences[LANG_SELECTED]
+        }
+
     suspend fun saveWidgetName(name: String){
         context.dataStore.edit { preferences ->
             preferences[WIDGET_KEY] = name
+        }
+    }
+
+    suspend fun saveLanguageSelected(lang: String){
+        context.dataStore.edit { preferences ->
+            preferences[LANG_SELECTED] = lang
         }
     }
 }

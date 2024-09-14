@@ -27,8 +27,6 @@ fun DefaultNavHost(
         navController = navController,
         startDestination = startDestination,
     ){
-
-
         composable(ScreenRoutes.Home.name){
             HomeScreen(
                 degrees = degrees,

@@ -6,6 +6,6 @@ fun getTheRightImage(
     degrees: Int,
 ): Int =
     when (degrees) {
-        in 92..94 -> R.drawable.correct_compass
+        in 91..95 -> R.drawable.correct_compass
         else -> R.drawable.default_compass
     }

@@ -71,12 +71,6 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                modifier = Modifier.padding(padding),
-                text = getDirectionsLabel(LocalContext.current, degrees),
-                color = MaterialTheme.colors.onBackground,
-                style = MaterialTheme.typography.h2
-            )
 
             compassComposable()
 
@@ -86,7 +80,6 @@ fun HomeScreen(
                      text = stringResource(R.string.missing_sensor_error)
                  )
              }
-
              */
 
         }
