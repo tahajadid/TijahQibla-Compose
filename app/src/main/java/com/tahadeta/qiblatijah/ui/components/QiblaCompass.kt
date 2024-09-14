@@ -18,12 +18,15 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
+import com.tahadeta.qiblatijah.ui.theme.katibehRegular
 import com.tahadeta.qiblatijah.utils.compassUtils.getDirectionsLabel
 
 @Suppress("ktlint:standard:function-naming")
@@ -69,8 +72,8 @@ fun QiblaCompass(
             Text(
                 text = stringResource(id = R.string.correct_direction),
                 color = MaterialTheme.colors.onBackground,
-                fontSize = 20.sp,
-                style = MaterialTheme.typography.h4,
+                fontFamily = katibehRegular,
+                fontSize = 22.sp,
             )
         }
 

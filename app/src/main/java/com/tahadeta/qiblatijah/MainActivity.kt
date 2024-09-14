@@ -1,7 +1,6 @@
 package com.tahadeta.qiblatijah
 
 import android.content.Context
-import android.content.res.Configuration
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -16,8 +15,7 @@ import com.tahadeta.qiblatijah.ui.components.QiblaCompass
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
-import com.tahadeta.qiblatijah.utils.updateLanguage
-import java.util.Locale
+import com.tahadeta.qiblatijah.utils.languageUtils.updateLanguage
 import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity(), SensorEventListener {
@@ -39,7 +37,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
 
         // update the language
-        updateLanguage(this,"ar")
+        // updateLanguage(this,"ar")
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 

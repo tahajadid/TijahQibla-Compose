@@ -1,4 +1,4 @@
-package com.tahadeta.qiblatijah.utils
+package com.tahadeta.qiblatijah.utils.languageUtils
 
 import android.content.Context
 import android.content.res.Configuration
