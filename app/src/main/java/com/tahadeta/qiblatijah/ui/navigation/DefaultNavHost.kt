@@ -12,7 +12,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tahadeta.qiblatijah.ui.components.QiblaCompass
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
+import com.tahadeta.qiblatijah.ui.screens.SettingsScreen
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
+import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
+import kotlinx.coroutines.launch
 
 @Composable
 fun DefaultNavHost(
@@ -31,6 +34,7 @@ fun DefaultNavHost(
             HomeScreen(
                 degrees = degrees,
                 isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
+
                 onMenuClick = { navController.navigate(ScreenRoutes.Settings.name )}
             ) {
                 val dataStore = PreferencesDataStore(LocalContext.current)
@@ -38,45 +42,26 @@ fun DefaultNavHost(
 
                 QiblaCompass(
                     degrees = degrees,
+                    imageSrc = getTheRightImage(degrees)
                 )
-
-                /*
-                when(selectedWidget){
-                    Widgets.QiblaCompass.name ->
-                        QiblaCompass(
-                            degrees = degrees,
-                            canvasSize = 300.dp
-                        )
-                    else -> StyledCompass(
-                        degrees = degrees,
-                        size = 300.dp
-                    )
-                }
-
-                 */
             }
         }
 
-
-
-        /*
-        composable(ScreenRoutes.WidgetSelection.name){
+        composable(ScreenRoutes.Settings.name){
             val dataStore = PreferencesDataStore(LocalContext.current)
 
             val coroutineScope = rememberCoroutineScope()
 
-            WidgetScreen(
+            SettingsScreen(
                 onArrowBackClick = { navController.popBackStack() },
                 onWidgetChoose = { name ->
                     coroutineScope.launch {
                         dataStore.saveWidgetName(name)
                     }
-
                     navController.popBackStack()
                 }
             )
         }
 
-         */
     }
 }

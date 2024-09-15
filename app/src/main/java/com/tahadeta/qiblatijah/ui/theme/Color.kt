@@ -12,4 +12,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val ScreenBgColor = Color(0xFFECF8F6)
 val ColorCorrect = Color(0xFF7AA95C)
+val RightColor = Color(0xFF2E5317)
 val ColorWrong = Color(0xFFFEEAA1)

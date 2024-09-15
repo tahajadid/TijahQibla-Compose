@@ -8,46 +8,43 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tahadeta.qiblatijah.R
-import com.tahadeta.qiblatijah.ui.components.QiblaCompass
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
-import com.tahadeta.qiblatijah.utils.compassUtils.getDirectionsLabel
+
 
 @Composable
-fun HomeScreen(
+fun SettingsScreen(
     modifier: Modifier = Modifier,
-    degrees: Int,
-    isMagneticFieldSensorPresent: Boolean,
-    onMenuClick: () -> Unit = {},
-    compassComposable: @Composable () -> Unit
+    onArrowBackClick: () -> Unit = {},
+    onWidgetChoose: (String) -> Unit = {}
 ) {
+
     Scaffold(
         backgroundColor = ScreenBgColor,
         topBar = {
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .background(ScreenBgColor),
-                horizontalArrangement = Arrangement.End
+                    .background(MaterialTheme.colors.surface),
             ) {
                 Icon(
                     modifier = Modifier
@@ -55,53 +52,51 @@ fun HomeScreen(
                         .size(32.dp)
                         .offset(0.dp,(20).dp)
                         .clickable {
-                            onMenuClick()
+                            onArrowBackClick()
                         },
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = stringResource(R.string.menu)
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = stringResource(R.string.back)
                 )
             }
         }
     ) { padding ->
 
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
+        Surface() {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .verticalScroll(
+                        state = rememberScrollState(),
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
 
-            compassComposable()
+                Text(
+                    text = stringResource(R.string.widget),
+                    style = MaterialTheme.typography.button,
+                    color = MaterialTheme.colors.onSurface.copy(0.7f)
+                )
 
-            /*
-             if (!isMagneticFieldSensorPresent) {
-                 CustomDialogAlert(
-                     text = stringResource(R.string.missing_sensor_error)
-                 )
-             }
-             */
 
+
+                Spacer(Modifier.padding(5.dp))
+
+                Spacer(Modifier.padding(top = 50.dp, end = 4.dp))
+
+
+            }
         }
     }
 }
 
-
 @Composable
 @Preview(showBackground = true)
-fun HomeScreenPreview() {
+fun SettingsScreenPreview() {
     QiblaTijahTheme {
-        HomeScreen(
+        SettingsScreen(
             modifier = Modifier,
-            20,
-            true,
-            {},
-            {
-                QiblaCompass(
-                    degrees = 93,
-                    imageSrc = R.drawable.correct_compass
-                )
-            }
         )
     }
 }
