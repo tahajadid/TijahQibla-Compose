@@ -12,6 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.tahadeta.qiblatijah.ui.components.QiblaCompass
+import com.tahadeta.qiblatijah.ui.navigation.DefaultNavHost
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
@@ -37,7 +38,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
 
         // update the language
-        // updateLanguage(this,"ar")
+        updateLanguage(this,"ar")
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
@@ -48,15 +49,11 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 
         setContent {
             QiblaTijahTheme {
-                HomeScreen(
+                DefaultNavHost(
                     degrees = degrees.value,
-                    isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
-                ) {
-                    QiblaCompass(
-                        degrees = degrees.value,
-                        imageSrc = getTheRightImage(degrees.value)
-                    )
-                }
+                    isMagneticFieldSensorPresent = isMagneticFieldSensorPresent
+
+                )
             }
         }
     }

@@ -52,7 +52,7 @@ fun HomeScreen(
                 Icon(
                     modifier = Modifier
                         .padding(24.dp)
-                        .size(40.dp)
+                        .size(32.dp)
                         .offset(0.dp,(20).dp)
                         .clickable {
                             onMenuClick()
@@ -89,7 +89,7 @@ fun HomeScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun CompassAnimationPreview() {
+fun HomeScreenPreview() {
     QiblaTijahTheme {
         HomeScreen(
             modifier = Modifier,
