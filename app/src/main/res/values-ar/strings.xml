@@ -16,4 +16,10 @@
     <string name="back">Back</string>
 
     <string name="correct_direction">الاتجاه الدقيق هو : 93ْ</string>
+
+    <string name="setting_qibla_title">اتجاه القبلة </string>
+    <string name="settings_qibla_description">القِبلة هي وجهة المصلي عند الصلاة وهي عند المسلمين الكعبة المشرفة في مدينة مكة. في فترة مبكرة من الإسلام كانت القِبلة هي بيت المقدس قبل هجرة النبي محمد إلى المدينة المنورة، وبذلك سميت القدس بـ"أولى القبلتين"، كان تحويل القِبلة في 17 رجب سنة 2 من الهجرة، وقيل في 8 محرم من ذات العام، أثناء الركعة الثانية من صلاة الظهر.</string>
+
+    <string name="setting_language_title">تغيير لغة التطبيق</string>
+
 </resources>
