@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,6 +30,7 @@ import com.tahadeta.qiblatijah.ui.theme.katibehRegular
 @Composable
 fun LanguageSwitcher(
     modifier: Modifier = Modifier,
+    isFrench: Boolean = true
 ) {
     Row(
         modifier = modifier
@@ -41,39 +43,41 @@ fun LanguageSwitcher(
 
         Box(
             modifier = Modifier
-                .fillMaxHeight()
                 .weight(1f)
+                .fillMaxHeight()
                 .padding(start = 8.dp, end = 4.dp, top = 8.dp, bottom = 8.dp)
                 .clip(shape = RoundedCornerShape(8.dp))
-                .background(ScreenBgColor),
+                .background(if(isFrench) RightLabelColor else ColorCorrect ),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = stringResource(id = R.string.lang_ar),
-                color = RightLabelColor,
+                text = stringResource(id = R.string.lang_fr),
+                color = ScreenBgColor,
                 fontFamily = katibehRegular,
-                fontSize = 24.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(4.dp)
+                fontSize = 30.sp,
+                overflow = TextOverflow.Clip,
+                softWrap = false,
+                textAlign = TextAlign.Justify,
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
 
         Box(
             modifier = Modifier
-                .fillMaxHeight()
                 .weight(1f)
+                .fillMaxHeight()
                 .padding(start = 4.dp, end = 8.dp, top = 8.dp, bottom = 8.dp)
                 .clip(shape = RoundedCornerShape(8.dp))
-                .background(ColorCorrect),
+                .background(if(!isFrench) RightLabelColor else ColorCorrect ),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = stringResource(id = R.string.lang_fr),
-                color = RightLabelColor,
+                text = stringResource(id = R.string.lang_ar),
+                color = ScreenBgColor,
                 fontFamily = katibehRegular,
-                fontSize = 30.sp,
+                fontSize = 24.sp,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(4.dp)
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
     }

@@ -28,10 +28,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tahadeta.qiblatijah.R
+import com.tahadeta.qiblatijah.ui.components.LanguageSwitcher
 import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.RightLabelColor
@@ -101,6 +103,15 @@ fun SettingsScreen(
 
                 Spacer(modifier = Modifier.height(20.dp))
 
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                        .height(6.dp)
+                        .padding(top = 4.dp, start = 24.dp)
+                        .background(RightLabelColor)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
                 Text(
                     text = stringResource(id = R.string.setting_language_title),
                     modifier = Modifier.padding(start = 24.dp),
@@ -109,12 +120,15 @@ fun SettingsScreen(
                     fontSize = 28.sp,
                 )
 
-                Box(
-                    modifier = Modifier.fillMaxWidth()
-                        .height(6.dp)
-                        .padding(top = 4.dp, start = 24.dp)
-                        .background(RightLabelColor)
+                Spacer(modifier = Modifier.height(6.dp))
+
+                LanguageSwitcher(
+                    modifier = Modifier
+                        .height(60.dp)
+                        .padding(start = 24.dp, end = 24.dp),
+
                 )
+
             }
         }
     }
@@ -128,6 +142,9 @@ fun CorrectQiblaDescription(){
         color = ColorCorrect,
         fontFamily = katibehRegular,
         fontSize = 22.sp,
+        style = TextStyle(
+            lineHeight = 30.sp
+        )
     )
 }
 
