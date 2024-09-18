@@ -22,4 +22,7 @@
 
     <string name="setting_language_title">تغيير لغة التطبيق</string>
 
+    <string name="lang_ar">العربية</string>
+    <string name="lang_fr">Français</string>
+
 </resources>

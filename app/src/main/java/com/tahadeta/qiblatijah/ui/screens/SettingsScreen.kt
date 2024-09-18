@@ -32,7 +32,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tahadeta.qiblatijah.R
-import com.tahadeta.qiblatijah.ui.components.CustomSwitchButton
 import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.RightLabelColor
@@ -116,13 +115,6 @@ fun SettingsScreen(
                         .padding(top = 4.dp, start = 24.dp)
                         .background(RightLabelColor)
                 )
-
-                CustomSwitchButton(
-                    switchPadding =  40.dp,
-                    buttonWidth =  140.dp,
-                    buttonHeight = 40.dp,
-                    value = false
-                )
             }
         }
     }
@@ -141,13 +133,7 @@ fun CorrectQiblaDescription(){
 
 @Composable
 fun SwitchSettingLanguage(){
-    Text(
-        text = stringResource(id = R.string.settings_qibla_description),
-        modifier = Modifier.padding(start = 24.dp, end = 16.dp, top = 16.dp),
-        color = ColorCorrect,
-        fontFamily = katibehRegular,
-        fontSize = 22.sp,
-    )
+
 }
 
 
