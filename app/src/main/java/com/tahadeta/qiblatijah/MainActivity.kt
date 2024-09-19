@@ -1,22 +1,29 @@
 package com.tahadeta.qiblatijah
 
+import android.app.LocaleManager
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.os.LocaleListCompat
 import com.tahadeta.qiblatijah.ui.components.QiblaCompass
 import com.tahadeta.qiblatijah.ui.navigation.DefaultNavHost
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
+import com.tahadeta.qiblatijah.utils.languageUtils.changeLanguage
 import com.tahadeta.qiblatijah.utils.languageUtils.updateLanguage
+import android.os.LocaleList
+import java.util.Locale
 import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity(), SensorEventListener {
@@ -33,12 +40,16 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     // default image
     private val imageRrc: MutableState<Int> = mutableStateOf(R.drawable.default_compass_new)
 
+    companion object {
+        lateinit var activityInstance: MainActivity
+        const val LANGUAGE_INDEX = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // update the language
-        updateLanguage(this,"ar")
+        //changeLanguage(this,"ar")
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
@@ -46,6 +57,8 @@ class MainActivity : ComponentActivity(), SensorEventListener {
             sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null
 
         enableEdgeToEdge()
+
+        activityInstance = this
 
         setContent {
             QiblaTijahTheme {
@@ -57,6 +70,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
             }
         }
     }
+
 
     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
         // Do something here if sensor accuracy changes.
@@ -131,5 +145,41 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         )
         SensorManager.getOrientation(rotationMatrix, mOrientationAngles)
     }
+
+
+    /*
+    private fun getDeviceLanguage(): String  {
+        return LocaleListCompat
+            .getDefault()
+            .get(LANGUAGE_INDEX)?.language
+            ?:
+            "fr"
+    }
+
+    fun setPerAppLanguage(language: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            with(
+                getSystemService(
+                    LocaleManager::class.java
+                )
+            ) {
+                val appLang = applicationLocales[LANGUAGE_INDEX]
+                if (appLang == null || appLang.toLanguageTag() != language) {
+                    applicationLocales =
+                        LocaleList(Locale.forLanguageTag(language))
+                }
+            }
+        } else {
+            val appLang = AppCompatDelegate.getApplicationLocales()[LANGUAGE_INDEX]
+            if (appLang == null || appLang.toLanguageTag() != language) {
+                AppCompatDelegate.setApplicationLocales(
+                    LocaleListCompat.forLanguageTags(
+                        language
+                    )
+                )
+            }
+        }
+    }
+     */
 
 }

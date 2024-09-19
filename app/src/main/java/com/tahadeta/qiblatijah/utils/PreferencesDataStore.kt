@@ -24,16 +24,17 @@ class PreferencesDataStore (val context: Context) {
             preferences[WIDGET_KEY]
         }
 
-    val getLanguageSelected: Flow<String?> = context.dataStore.data
-        .map { preferences ->
-            preferences[LANG_SELECTED]
-        }
-
     suspend fun saveWidgetName(name: String){
         context.dataStore.edit { preferences ->
             preferences[WIDGET_KEY] = name
         }
     }
+
+
+    val getLanguageSelected: Flow<String?> = context.dataStore.data
+        .map { preferences ->
+            preferences[LANG_SELECTED]
+        }
 
     suspend fun saveLanguageSelected(lang: String){
         context.dataStore.edit { preferences ->

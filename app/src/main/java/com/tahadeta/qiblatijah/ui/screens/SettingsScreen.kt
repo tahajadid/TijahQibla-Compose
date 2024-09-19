@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
@@ -25,13 +24,19 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.ui.components.LanguageSwitcher
 import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
@@ -39,96 +44,113 @@ import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.RightLabelColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
+import com.tahadeta.qiblatijah.utils.PreferencesDataStore
+import com.tahadeta.qiblatijah.utils.languageUtils.LanguageSelection
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
     onArrowBackClick: () -> Unit = {},
-    onWidgetChoose: (String) -> Unit = {}
-) {
+    onWidgetChoose: (String) -> Unit = {},
+    onLanguageSwitchClick: () -> Unit = {},
+    layoutDirection : LayoutDirection = LayoutDirection.Rtl
+    ) {
+    CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+        // Your composable content here
 
-    Scaffold(
-        backgroundColor = ScreenBgColor,
-        topBar = {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colors.surface),
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .padding(24.dp)
-                        .size(32.dp)
-                        .offset(0.dp, (20).dp)
-                        .clickable {
-                            onArrowBackClick()
-                        },
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = stringResource(R.string.back)
-                )
+        Scaffold(
+            backgroundColor = ScreenBgColor,
+            topBar = {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colors.surface),
+                ) {
+                    Icon(
+                        modifier = Modifier
+                            .padding(24.dp)
+                            .size(32.dp)
+                            .offset(0.dp, (20).dp)
+                            .clickable {
+                                onArrowBackClick()
+                            },
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = stringResource(R.string.back)
+                    )
+                }
             }
-        }
-    ) { padding ->
+        ) { padding ->
 
-        Surface() {
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .verticalScroll(
-                        state = rememberScrollState(),
-                    ),
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Top
-            ) {
-                Spacer(modifier = Modifier.height(20.dp))
+            Surface() {
+                Column(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                        .verticalScroll(
+                            state = rememberScrollState(),
+                        ),
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Top
+                ) {
+                    Spacer(modifier = Modifier.height(20.dp))
 
-                Text(
-                    text = stringResource(id = R.string.setting_qibla_title),
-                    modifier = Modifier.padding(start = 24.dp),
-                    color = RightLabelColor,
-                    fontFamily = katibehRegular,
-                    fontSize = 28.sp,
-                )
+                    Text(
+                        text = stringResource(id = R.string.setting_qibla_title),
+                        modifier = Modifier.padding(start = 24.dp),
+                        color = RightLabelColor,
+                        fontFamily = katibehRegular,
+                        fontSize = 28.sp,
+                    )
 
-                Box(
-                    modifier = Modifier.fillMaxWidth()
-                        .height(6.dp)
-                        .padding(top = 4.dp, start = 24.dp)
-                        .background(RightLabelColor)
-                )
+                    Box(
+                        modifier = Modifier.fillMaxWidth()
+                            .height(6.dp)
+                            .padding(top = 4.dp, start = 24.dp)
+                            .background(RightLabelColor)
+                    )
 
-                CorrectQiblaDescription()
+                    CorrectQiblaDescription()
 
-                Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
-                Box(
-                    modifier = Modifier.fillMaxWidth()
-                        .height(6.dp)
-                        .padding(top = 4.dp, start = 24.dp)
-                        .background(RightLabelColor)
-                )
+                    Box(
+                        modifier = Modifier.fillMaxWidth()
+                            .height(6.dp)
+                            .padding(top = 4.dp, start = 24.dp)
+                            .background(RightLabelColor)
+                    )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
-                Text(
-                    text = stringResource(id = R.string.setting_language_title),
-                    modifier = Modifier.padding(start = 24.dp),
-                    color = RightLabelColor,
-                    fontFamily = katibehRegular,
-                    fontSize = 28.sp,
-                )
+                    Text(
+                        text = stringResource(id = R.string.setting_language_title),
+                        modifier = Modifier.padding(start = 24.dp),
+                        color = RightLabelColor,
+                        fontFamily = katibehRegular,
+                        fontSize = 28.sp,
+                    )
 
-                Spacer(modifier = Modifier.height(6.dp))
+                    Spacer(modifier = Modifier.height(6.dp))
 
-                LanguageSwitcher(
-                    modifier = Modifier
-                        .height(60.dp)
-                        .padding(start = 24.dp, end = 24.dp),
+                    val dataStore = PreferencesDataStore(LocalContext.current)
+                    val coroutineScope = rememberCoroutineScope()
 
-                )
+                    LanguageSwitcher(
+                        modifier = Modifier
+                            .height(60.dp)
+                            .padding(start = 24.dp, end = 24.dp)
+                            .clickable {
+                                onLanguageSwitchClick()
 
+                                coroutineScope.launch {
+                                    //setPerAppLanguage()
+                                    dataStore.saveLanguageSelected("ar")
+                                } },
+
+                    )
+                }
             }
         }
     }
@@ -146,11 +168,6 @@ fun CorrectQiblaDescription(){
             lineHeight = 30.sp
         )
     )
-}
-
-@Composable
-fun SwitchSettingLanguage(){
-
 }
 
 

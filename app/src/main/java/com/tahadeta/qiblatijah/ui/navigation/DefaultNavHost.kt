@@ -10,11 +10,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.ui.components.QiblaCompass
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.screens.SettingsScreen
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
+import com.tahadeta.qiblatijah.utils.languageUtils.changeLanguage
+import com.tahadeta.qiblatijah.utils.languageUtils.updateLanguage
 import kotlinx.coroutines.launch
 
 @Composable
@@ -58,6 +61,10 @@ fun DefaultNavHost(
                     coroutineScope.launch {
                         dataStore.saveWidgetName(name)
                     }
+                    navController.popBackStack()
+                },
+                onLanguageSwitchClick = {
+                    changeLanguage(MainActivity.activityInstance,"ar")
                     navController.popBackStack()
                 }
             )

@@ -44,8 +44,6 @@ fun QiblaCompass(
         degrees = degrees,
     ) { rotationAngle ->
 
-        CompositionLocalProvider(
-            LocalLayoutDirection provides LayoutDirection.Ltr ){
             Column(
                 modifier = modifier,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -81,7 +79,7 @@ fun QiblaCompass(
                     fontSize = 24.sp,
                 )
             }
-        }
+
 
     }
 }
