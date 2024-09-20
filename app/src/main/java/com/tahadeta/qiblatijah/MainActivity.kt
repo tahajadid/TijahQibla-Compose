@@ -51,6 +51,8 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         // update the language
         //changeLanguage(this,"ar")
 
+        setPerAppLanguage("ar")
+
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         val isMagneticFieldSensorPresent =
@@ -147,7 +149,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     }
 
 
-    /*
+
     private fun getDeviceLanguage(): String  {
         return LocaleListCompat
             .getDefault()
@@ -180,6 +182,6 @@ class MainActivity : ComponentActivity(), SensorEventListener {
             }
         }
     }
-     */
+
 
 }
