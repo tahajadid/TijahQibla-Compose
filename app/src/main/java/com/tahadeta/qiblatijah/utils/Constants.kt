@@ -4,4 +4,8 @@ object Constants {
     const val COMPASS_CENTER_TOP_POSITION = 270
     const val COMPASS_QIBLA = 93
 
+    // Kaaba coordinates
+    const val KAABA_LAT = 21.4225
+    const val KAABA_LON = 39.8262
+
 }
