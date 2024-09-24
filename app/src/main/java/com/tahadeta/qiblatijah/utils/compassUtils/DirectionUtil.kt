@@ -2,6 +2,8 @@ package com.tahadeta.qiblatijah.utils.compassUtils
 
 import android.content.Context
 import com.tahadeta.qiblatijah.R
+import com.tahadeta.qiblatijah.utils.Constants.KAABA_LAT
+import com.tahadeta.qiblatijah.utils.Constants.KAABA_LON
 
 fun getDirectionsLabel(
     context: Context,
@@ -22,12 +24,10 @@ fun getDirectionsLabel(
 
 fun calculateBearing(
     lat1: Double,
-    lon1: Double,
-    lat2: Double,
-    lon2: Double): Double {
+    lon1: Double): Double {
     val phi1 = Math.toRadians(lat1)
-    val phi2 = Math.toRadians(lat2)
-    val deltaLambda = Math.toRadians(lon2 - lon1)
+    val phi2 = Math.toRadians(KAABA_LAT)
+    val deltaLambda = Math.toRadians(KAABA_LON - lon1)
 
     val y = Math.sin(deltaLambda) * Math.cos(phi2)
     val x = Math.cos(phi1) * Math.sin(phi2) -
