@@ -1,9 +1,7 @@
 package com.tahadeta.qiblatijah
 
-import android.annotation.SuppressLint
 import android.app.LocaleManager
 import android.content.Context
-import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -20,19 +18,6 @@ import androidx.core.os.LocaleListCompat
 import com.tahadeta.qiblatijah.ui.navigation.DefaultNavHost
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import android.os.LocaleList
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.core.app.ActivityCompat
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
-import com.google.android.gms.tasks.CancellationTokenSource
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtils
 import java.util.Locale
 import kotlin.math.roundToInt
@@ -76,7 +61,6 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 
         setContent {
             QiblaTijahTheme {
-                LocationUtils.requestLocation()
                 DefaultNavHost(
                     degrees = degrees.value,
                     isMagneticFieldSensorPresent = isMagneticFieldSensorPresent
@@ -196,6 +180,5 @@ class MainActivity : ComponentActivity(), SensorEventListener {
             }
         }
     }
-
 
 }
