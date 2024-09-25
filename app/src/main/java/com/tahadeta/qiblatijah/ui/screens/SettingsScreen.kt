@@ -94,7 +94,9 @@ fun SettingsScreen(
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Top
                 ) {
-                    Spacer(modifier = Modifier.height(20.dp))
+
+                    // Header Description
+                    AddSpace(20)
 
                     Text(
                         text = stringResource(id = R.string.setting_qibla_title),
@@ -110,19 +112,10 @@ fun SettingsScreen(
                             .padding(top = 4.dp, start = 24.dp)
                             .background(RightLabelColor)
                     )
-
                     CorrectQiblaDescription()
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Box(
-                        modifier = Modifier.fillMaxWidth()
-                            .height(6.dp)
-                            .padding(top = 4.dp, start = 24.dp)
-                            .background(RightLabelColor)
-                    )
-
-                    Spacer(modifier = Modifier.height(20.dp))
+                    // switch language settings
+                    AddSpace(20)
 
                     Text(
                         text = stringResource(id = R.string.setting_language_title),
@@ -132,7 +125,13 @@ fun SettingsScreen(
                         fontSize = 28.sp,
                     )
 
-                    Spacer(modifier = Modifier.height(6.dp))
+                    Box(
+                        modifier = Modifier.fillMaxWidth()
+                            .height(6.dp)
+                            .padding(top = 4.dp, start = 24.dp)
+                            .background(RightLabelColor)
+                    )
+                    AddSpace(10)
 
                     val dataStore = PreferencesDataStore(LocalContext.current)
                     val coroutineScope = rememberCoroutineScope()
@@ -150,10 +149,31 @@ fun SettingsScreen(
                                 } },
 
                     )
+
+                    // set location permission
+                    AddSpace(30)
+                    Text(
+                        text = stringResource(id = R.string.setting_location_title),
+                        modifier = Modifier.padding(start = 24.dp),
+                        color = RightLabelColor,
+                        fontFamily = katibehRegular,
+                        fontSize = 28.sp,
+                    )
+                    Box(
+                        modifier = Modifier.fillMaxWidth()
+                            .height(6.dp)
+                            .padding(top = 4.dp, start = 24.dp)
+                            .background(RightLabelColor)
+                    )
                 }
             }
         }
     }
+}
+
+@Composable
+fun AddSpace(space: Int){
+    Spacer(modifier = Modifier.height(space.dp))
 }
 
 @Composable
