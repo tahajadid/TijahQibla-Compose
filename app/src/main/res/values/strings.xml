@@ -15,6 +15,14 @@
         Fermer l’application
     </string>
 
+    <string name="active_location">
+        Activer la localisation
+    </string>
+
+    <string name="active_location_description">
+        Pour avoir une bonne precision vous devez donner l’acces à votre position
+    </string>
+
     <string name="menu">Menu</string>
     <string name="back">Back</string>
 

@@ -1,7 +1,9 @@
-package com.tahadeta.qiblatijah.ui.components
+package com.tahadeta.qiblatijah.ui.components.customDialog
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -14,7 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -27,7 +32,9 @@ import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 @Composable
 fun CustomDialogAlert(
     modifier: Modifier = Modifier,
-    text: String) {
+    text: String,
+    imageSrc: Int
+) {
 
     var showDialog by remember {
         mutableStateOf(true)
@@ -46,6 +53,16 @@ fun CustomDialogAlert(
                     modifier = Modifier.padding(bottom = 10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    // background image
+                    Image(
+                        painter = painterResource(id = imageSrc),
+                        contentDescription = "compass image",
+                        modifier = Modifier
+                            .size(120.dp)
+                            .padding(top = 10.dp),
+                        contentScale = ContentScale.Fit
+                    )
+
                     Text(
                         modifier = Modifier.padding(
                             start = 16.dp,
@@ -53,6 +70,7 @@ fun CustomDialogAlert(
                             top = 10.dp,
                             bottom = 10.dp
                         ),
+                        textAlign = TextAlign.Center,
                         text = text,
                         color = MaterialTheme.colors.onSurface,
                         style = MaterialTheme.typography.body1
@@ -87,6 +105,7 @@ fun HomeScreenPreview() {
             modifier = Modifier,
             "onDism fefferfissRequest dwedq wed rrfer" +
                     "quest dw onDism issRequest onDismif ssRequest ",
+            imageSrc = R.drawable.sad_icon
         )
     }
 }

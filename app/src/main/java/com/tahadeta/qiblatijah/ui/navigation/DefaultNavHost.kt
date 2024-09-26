@@ -5,19 +5,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tahadeta.qiblatijah.MainActivity
-import com.tahadeta.qiblatijah.ui.components.QiblaCompass
+import com.tahadeta.qiblatijah.ui.components.compass.QiblaCompass
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.screens.SettingsScreen
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.languageUtils.changeLanguage
-import com.tahadeta.qiblatijah.utils.languageUtils.updateLanguage
 import kotlinx.coroutines.launch
 
 @Composable

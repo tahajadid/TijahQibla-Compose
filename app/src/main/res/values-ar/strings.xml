@@ -15,6 +15,14 @@
         أغلق التطبيق
     </string>
 
+    <string name="active_location">
+        تحديد الموقع
+    </string>
+
+    <string name="active_location_description">
+       للحصول على دقة جيدة، يجب عليك منح حق الوصول إلى موقعك
+    </string>
+
     <string name="menu">Menu</string>
     <string name="back">Back</string>
 
