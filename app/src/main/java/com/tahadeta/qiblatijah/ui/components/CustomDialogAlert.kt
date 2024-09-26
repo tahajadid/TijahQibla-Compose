@@ -86,7 +86,7 @@ fun HomeScreenPreview() {
         CustomDialogAlert(
             modifier = Modifier,
             "onDism fefferfissRequest dwedq wed rrfer" +
-                    "quest dw onDismissRequest onDismif ssRequest ",
+                    "quest dw onDism issRequest onDismif ssRequest ",
         )
     }
 }

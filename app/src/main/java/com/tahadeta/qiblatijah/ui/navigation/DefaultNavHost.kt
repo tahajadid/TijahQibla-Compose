@@ -37,7 +37,6 @@ fun DefaultNavHost(
             HomeScreen(
                 degrees = degrees,
                 isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
-
                 onMenuClick = { navController.navigate(ScreenRoutes.Settings.name )}
             ) {
                 val dataStore = PreferencesDataStore(LocalContext.current)
