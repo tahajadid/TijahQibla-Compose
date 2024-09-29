@@ -1,6 +1,6 @@
 # Tijah-Qibla
 
-Android Application developed to get the right angle for Qibla
+Android Application developed to get the right angle for Qibla.
 
 ## Geometric Calculation of Qibla Direction
 
