@@ -1,9 +1,5 @@
 package com.tahadeta.qiblatijah.ui.screens
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,45 +8,26 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.tahadeta.qiblatijah.R
-import com.tahadeta.qiblatijah.ui.components.AnimateLocationAccess
-import com.tahadeta.qiblatijah.ui.components.LocationRequestSection
+import com.tahadeta.qiblatijah.ui.components.LocationRequestSectionHolder
 import com.tahadeta.qiblatijah.ui.components.customDialog.CustomDialogAlert
 import com.tahadeta.qiblatijah.ui.components.compass.QiblaCompass
-import com.tahadeta.qiblatijah.ui.theme.ColorBlue
-import com.tahadeta.qiblatijah.ui.theme.ColorBlueOpacity
-import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgOpacityColor
-import com.tahadeta.qiblatijah.ui.theme.katibehRegular
-import kotlinx.coroutines.delay
 
 @Composable
 fun HomeScreen(
@@ -117,7 +94,11 @@ fun HomeScreen(
             // in case of the user does not give the app the location access
             // a section should be appear to remind him that the compass cannot work
             // and give the right angle without latitude and longitude
-            AnimateLocationAccess(modifier.align(Alignment.Center))
+            LocationRequestSectionHolder(
+                modifier.align(Alignment.Center)
+                    .padding(bottom = 40.dp)
+                    .background(ScreenBgOpacityColor)
+            )
         }
 
     }
