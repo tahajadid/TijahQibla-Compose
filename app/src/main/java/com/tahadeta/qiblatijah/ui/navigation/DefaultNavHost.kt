@@ -16,6 +16,7 @@ import com.tahadeta.qiblatijah.ui.screens.SettingsScreen
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.languageUtils.changeLanguage
+import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtils.requestLocation
 import kotlinx.coroutines.launch
 
 @Composable
@@ -35,7 +36,9 @@ fun DefaultNavHost(
             HomeScreen(
                 degrees = degrees,
                 isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
-                onMenuClick = { navController.navigate(ScreenRoutes.Settings.name )}
+                onMenuClick = {
+                    navController.navigate(ScreenRoutes.Settings.name )
+                }
             ) {
                 val dataStore = PreferencesDataStore(LocalContext.current)
                 val selectedWidget by dataStore.getWidgetName.collectAsState(initial = null)
