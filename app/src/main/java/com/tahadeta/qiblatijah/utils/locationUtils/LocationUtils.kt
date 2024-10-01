@@ -112,7 +112,9 @@ object LocationUtils {
             }
 
             // If there are permissions to request, launch the permission request.
-            if (permissionsToRequest.isNotEmpty()) permissionState.launchMultiplePermissionRequest()
+            if (permissionsToRequest.isNotEmpty()){
+                permissionState.launchMultiplePermissionRequest()
+            }
 
             // Execute callbacks based on permission status.
             if (allPermissionsRevoked) {
@@ -208,7 +210,7 @@ object LocationUtils {
      *
      * @return true if both ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION permissions are granted; false otherwise.
      */
-    private fun areLocationPermissionsGranted(): Boolean {
+    fun areLocationPermissionsGranted(): Boolean {
         return (ActivityCompat.checkSelfPermission(
             MainActivity.activityInstance, android.Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED &&

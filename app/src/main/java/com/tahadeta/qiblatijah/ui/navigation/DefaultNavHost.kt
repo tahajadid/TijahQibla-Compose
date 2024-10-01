@@ -37,7 +37,7 @@ fun DefaultNavHost(
                 degrees = degrees,
                 isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
                 onMenuClick = {
-                    navController.navigate(ScreenRoutes.Settings.name )
+                    navController.navigate(ScreenRoutes.Settings.name)
                 }
             ) {
                 val dataStore = PreferencesDataStore(LocalContext.current)
@@ -45,7 +45,8 @@ fun DefaultNavHost(
 
                 QiblaCompass(
                     degrees = degrees,
-                    imageSrc = getTheRightImage(degrees)
+                    imageSrc = getTheRightImage(degrees),
+                    rotateCompass = false
                 )
             }
         }

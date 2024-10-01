@@ -15,12 +15,18 @@ import com.tahadeta.qiblatijah.utils.compassUtils.getRotation
 fun DefaultCompass(
     modifier: Modifier = Modifier,
     degrees: Int = 360,
+    rotateCompass: Boolean,
     variantWidget: @Composable (rotationAngle: Float) -> Unit,
 ) {
+
     // this keeps last rotation
     val (lastRotation, setLastRotation) = remember { mutableStateOf(0) }
 
-    val newRotation = getRotation(degrees, lastRotation)
+    /**
+     * when we want to make the compass static we should set the degree to the init
+     * value (360)
+     */
+    val newRotation = getRotation(if(rotateCompass) degrees else 360, lastRotation)
 
     setLastRotation(newRotation)
 
