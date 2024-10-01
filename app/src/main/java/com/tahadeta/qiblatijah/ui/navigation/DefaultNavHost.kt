@@ -17,6 +17,7 @@ import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.languageUtils.changeLanguage
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtils.requestLocation
+import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -39,16 +40,7 @@ fun DefaultNavHost(
                 onMenuClick = {
                     navController.navigate(ScreenRoutes.Settings.name)
                 }
-            ) {
-                val dataStore = PreferencesDataStore(LocalContext.current)
-                val selectedWidget by dataStore.getWidgetName.collectAsState(initial = null)
-
-                QiblaCompass(
-                    degrees = degrees,
-                    imageSrc = getTheRightImage(degrees),
-                    rotateCompass = false
-                )
-            }
+            )
         }
 
         composable(ScreenRoutes.Settings.name){

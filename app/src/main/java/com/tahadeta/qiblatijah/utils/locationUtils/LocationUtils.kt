@@ -2,7 +2,11 @@ package com.tahadeta.qiblatijah.utils.locationUtils
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.util.Log
+import androidx.compose.material.Button
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,18 +16,22 @@ import androidx.core.app.ActivityCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.google.accompanist.permissions.shouldShowRationale
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.tahadeta.qiblatijah.MainActivity
+import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 
 object LocationUtils {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     @Composable
-    fun requestLocation(){
+    fun requestLocation(
+        homeViewModel: HomeViewModel
+    ){
 
         // State variables to manage location information and permission result text
         var locationText by remember { mutableStateOf("No location obtained :(") }
@@ -33,21 +41,33 @@ object LocationUtils {
 
         // Request location permission using a Compose function
         RequestLocationPermission(
+            viewModel = homeViewModel,
             onPermissionGranted = {
+
+                Log.d("TestTT","LocationRequest  -- onPermissionGranted")
+
+                homeViewModel.updateLocationView(true)
+
                 // Callback when permission is granted
                 showPermissionResultText = true
                 // Attempt to get the last known user location
                 getLastUserLocation(
                     onGetLastLocationSuccess = {
+                        Log.d("TestTT","LocationRequest  onGetLastLocationSuccess")
+
                         locationText =
                             "Location using LAST-LOCATION: LATITUDE: ${it.first}, LONGITUDE: ${it.second}"
                     },
                     onGetLastLocationFailed = { exception ->
+                        Log.d("TestTT","LocationRequest  onGetLastLocationFailed")
+
                         showPermissionResultText = true
                         locationText =
                             exception.localizedMessage ?: "Error Getting Last Location"
                     },
                     onGetLastLocationIsNull = {
+                        Log.d("TestTT","LocationRequest  onGetLastLocationIsNull")
+
                         // Attempt to get the current user location
                         getCurrentLocation(
                             onGetCurrentLocationSuccess = {
@@ -65,11 +85,18 @@ object LocationUtils {
                 )
             },
             onPermissionDenied = {
+                Log.d("TestTT","LocationRequest  -- onPermissionDenied")
+
+                homeViewModel.updateLocationView(false)
                 // Callback when permission is denied
                 showPermissionResultText = true
                 permissionResultText = "Permission Denied :("
             },
             onPermissionsRevoked = {
+                Log.d("TestTT","LocationRequest  -- onPermissionsRevoked")
+                Log.d("TestTT","areLocationPermissionsGranted  '''' - areLocationPermissionsGranted"+areLocationPermissionsGranted())
+                homeViewModel.updateLocationView(true)
+
                 // Callback when permission is revoked
                 showPermissionResultText = true
                 permissionResultText = "Permission Revoked :("
@@ -90,7 +117,8 @@ object LocationUtils {
     fun RequestLocationPermission(
         onPermissionGranted: () -> Unit,
         onPermissionDenied: () -> Unit,
-        onPermissionsRevoked: () -> Unit
+        onPermissionsRevoked: () -> Unit,
+        viewModel: HomeViewModel
     ) {
         // Initialize the state for managing multiple location permissions.
         val permissionState = rememberMultiplePermissionsState(
@@ -99,34 +127,28 @@ object LocationUtils {
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
             )
         )
+        LaunchedEffect(permissionState) {
+            // Launch permission request if not granted yet
+            permissionState.launchMultiplePermissionRequest()
 
-        // Use LaunchedEffect to handle permissions logic when the composition is launched.
-        LaunchedEffect(key1 = permissionState) {
-            // Check if all previously granted permissions are revoked.
-            val allPermissionsRevoked =
-                permissionState.permissions.size == permissionState.revokedPermissions.size
-
-            // Filter permissions that need to be requested.
-            val permissionsToRequest = permissionState.permissions.filter {
-                !it.status.isGranted
-            }
-
-            // If there are permissions to request, launch the permission request.
-            if (permissionsToRequest.isNotEmpty()){
-                permissionState.launchMultiplePermissionRequest()
-            }
-
-            // Execute callbacks based on permission status.
-            if (allPermissionsRevoked) {
-                onPermissionsRevoked()
-            } else {
-                if (permissionState.allPermissionsGranted) {
-                    onPermissionGranted()
-                } else {
-                    onPermissionDenied()
+            // Monitor permission state changes after user response
+            permissionState.permissions.forEach { permission ->
+                when {
+                    permission.status.isGranted -> {
+                        Log.d("TestTTt", "Permission Granted: ${permission.permission}")
+                        onPermissionGranted()
+                    }
+                    permission.status.shouldShowRationale -> {
+                        Log.d("TestTTt", "Permission Denied with rationale: ${permission.permission}")
+                        onPermissionDenied()
+                    }
+                    !permission.status.isGranted && !permission.status.shouldShowRationale -> {
+                        Log.d("TestTTt", "Permission Denied permanently: ${permission.permission}")
+                        onPermissionsRevoked()
+                    }
                 }
             }
-        }
+    }
     }
 
 

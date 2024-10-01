@@ -79,4 +79,6 @@ dependencies {
 
     implementation(libs.playServicesLocation)
     implementation(libs.accompanistPermissions)
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 }

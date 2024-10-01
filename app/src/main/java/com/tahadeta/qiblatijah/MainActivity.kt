@@ -1,11 +1,14 @@
 package com.tahadeta.qiblatijah
 
+import android.Manifest
+import android.app.Activity
 import android.app.LocaleManager
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,7 +21,44 @@ import androidx.core.os.LocaleListCompat
 import com.tahadeta.qiblatijah.ui.navigation.DefaultNavHost
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import android.os.LocaleList
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.MultiplePermissionsState
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.NoPermissionDialog
+import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.createLocationRequest
+import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.fetchLastLocation
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtils
+import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 import java.util.Locale
 import kotlin.math.roundToInt
 
@@ -27,7 +67,6 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private val accelerometerReading = FloatArray(3)
     private val magnetometerReading = FloatArray(3)
-
     private val rotationMatrix = FloatArray(9)
     private val mOrientationAngles = FloatArray(3)
 
@@ -41,11 +80,12 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         const val LANGUAGE_INDEX = 0
     }
 
+    @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // update the language
-        //changeLanguage(this,"ar")
+        // changeLanguage(this,"ar")
 
         setPerAppLanguage("ar")
 
@@ -56,14 +96,13 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 
         enableEdgeToEdge()
 
-
         activityInstance = this
 
         setContent {
             QiblaTijahTheme {
                 DefaultNavHost(
                     degrees = degrees.value,
-                    isMagneticFieldSensorPresent = isMagneticFieldSensorPresent
+                    isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
                 )
             }
         }
@@ -71,6 +110,143 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 
 
 
+    @OptIn(ExperimentalPermissionsApi::class)
+    @Composable
+    fun getLocationDevice(homeViewModel: HomeViewModel){
+        var locationFromGps: Location? by remember { mutableStateOf(null) }
+        var openDialog: String by remember { mutableStateOf("") }
+
+        val locationPermissionsState = rememberMultiplePermissionsState(
+            listOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+            )
+        )
+
+        val context = LocalContext.current
+        val fusedLocationProviderClient = remember { LocationServices.getFusedLocationProviderClient(context) }
+        val locationCallback = remember {
+            object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    Log.d("onLocationResult", "locationResult.latitude: ${locationResult.lastLocation?.latitude}")
+                    locationFromGps = locationResult.lastLocation
+                }
+            }
+        }
+
+
+        val settingsLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.StartIntentSenderForResult(),
+            onResult = {
+                when (it.resultCode) {
+                    Activity.RESULT_OK -> {
+                        context.fetchLastLocation(
+                            fusedLocationClient = fusedLocationProviderClient,
+                            settingsLauncher = null,
+                            location = {
+                                Log.d("settingsLauncher", "location: ${it.latitude}")
+                                if (locationFromGps == null && locationFromGps != it) {
+                                    locationFromGps = it
+                                }
+                            },
+                            locationCallback = locationCallback
+                        )
+                    }
+                    Activity.RESULT_CANCELED -> {
+                        Toast.makeText(context, "Activity.RESULT_CANCELED", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        )
+
+        LaunchedEffect(
+            key1 = locationPermissionsState.revokedPermissions.size,
+            key2 = locationPermissionsState.shouldShowRationale,
+            block = {
+                fetchLocation(
+                    locationPermissionsState,
+                    context,
+                    settingsLauncher,
+                    fusedLocationProviderClient,
+                    locationCallback,
+                    homeViewModel,
+                    openDialog = {
+                        openDialog = it
+                    })
+            })
+
+        LaunchedEffect(
+            key1 = locationFromGps,
+            block = {
+                Log.d("LaunchedEffect", "locationFromGps: $locationFromGps")
+                // TODO: setup GeoCoder
+
+            }
+        )
+
+        DisposableEffect(
+            key1 = true
+        ) {
+            onDispose {
+                fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+            }
+        }
+
+
+        if (openDialog.isNotEmpty()) {
+            Dialog(
+                onDismissRequest = { openDialog = "" },
+                properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
+            ) {
+                NoPermissionDialog(
+                    message = openDialog,
+                    reqPermission = {
+                        locationPermissionsState.launchMultiplePermissionRequest()
+                        openDialog = ""
+                    }
+                )
+            }
+        }
+    }
+
+
+    @OptIn(ExperimentalPermissionsApi::class)
+    private fun fetchLocation(
+        locationPermissionsState: MultiplePermissionsState,
+        context: Context,
+        settingsLauncher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>,
+        fusedLocationProviderClient: FusedLocationProviderClient,
+        locationCallback: LocationCallback,
+        homeViewModel: HomeViewModel,
+        openDialog: (String) -> Unit
+    ) {
+        when {
+            locationPermissionsState.revokedPermissions.size <= 1 -> {
+
+                homeViewModel.updateLocationView(true)
+
+                // Has permission at least one permission [coarse or fine]
+                context.createLocationRequest(
+                    settingsLauncher = settingsLauncher,
+                    fusedLocationClient = fusedLocationProviderClient,
+                    locationCallback = locationCallback
+                )
+                Log.d("LaunchedEffect", "revokedPermissions.size <= 1")
+            }
+            locationPermissionsState.shouldShowRationale -> {
+                openDialog("Should show rationale")
+                Log.d("LaunchedEffect", "shouldShowRationale")
+            }
+            locationPermissionsState.revokedPermissions.size == 2 -> {
+                locationPermissionsState.launchMultiplePermissionRequest()
+                Log.d("LaunchedEffect", "revokedPermissions.size == 2")
+            }
+            else -> {
+                openDialog("This app requires location permission")
+                Log.d("LaunchedEffect", "else")
+            }
+        }
+    }
 
     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
         // Do something here if sensor accuracy changes.
