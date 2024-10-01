@@ -35,33 +35,36 @@ fun QiblaCompass(
     modifier: Modifier = Modifier,
     degrees: Int = 193,
     imageSrc: Int?,
+    rotateCompass: Boolean,
 ) {
     DefaultCompass(
         modifier = modifier,
         degrees = degrees,
+        rotateCompass = rotateCompass
     ) { rotationAngle ->
 
-            Column(
-                modifier = modifier,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-                // Kaaba image for the right direction
-                Image(
-                    modifier = Modifier.size(120.dp),
-                    painter = painterResource(id = R.drawable.kaaba_logo),
-                    contentDescription = "kaaba logo",
+            // Kaaba image for the right direction
+            Image(
+                modifier = Modifier.size(120.dp),
+                painter = painterResource(id = R.drawable.kaaba_logo),
+                contentDescription = "kaaba logo",
                 )
 
-                // background image
-                Image(
-                    painter = painterResource(id = imageSrc ?: getTheRightImage(degrees)),
-                    contentDescription = "compass image",
-                    modifier = Modifier
-                        .offset(0.dp, (-16).dp)
-                        .rotate(rotationAngle),
+            // background image
+            Image(
+                painter = painterResource(id = imageSrc ?: getTheRightImage(degrees)),
+                contentDescription = "compass image",
+                modifier = Modifier
+                    .offset(0.dp, (-16).dp)
+                    .rotate(rotationAngle),
                 )
 
+            if(rotateCompass){
                 // add vertical space
                 Spacer(modifier = Modifier.height(40.dp))
 
@@ -74,10 +77,9 @@ fun QiblaCompass(
                     color = RightLabelColor,
                     fontFamily = katibehRegular,
                     fontSize = 24.sp,
-                )
+                    )
             }
-
-
+        }
     }
 }
 
@@ -112,7 +114,8 @@ fun DegreeAndDirection(degrees: Int) {
 fun CompassAnimationPreview() {
     QiblaTijahTheme {
         QiblaCompass(
-            imageSrc = R.drawable.correct_compass
+            imageSrc = R.drawable.correct_compass,
+            rotateCompass = false
         )
     }
 }

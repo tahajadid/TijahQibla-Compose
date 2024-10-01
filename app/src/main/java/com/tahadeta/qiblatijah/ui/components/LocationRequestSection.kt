@@ -112,10 +112,6 @@ fun LocationRequestSection(
             )
         }
 
-        if (showComposable) {
-            LocationUtils.requestLocation()
-        }
-
     }
 }
 
