@@ -39,6 +39,7 @@ import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgOpacityColor
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
+import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.getLocationDevice
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtils
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 
@@ -122,23 +123,6 @@ fun HomeScreen(
 
             }
 
-            /*
-            if(homeUiState.isLocationActivated){
-                // in case of the user does not give the app the location access
-                // a section should be appear to remind him that the compass cannot work
-                // and give the right angle without latitude and longitude
-                LocationRequestSectionHolder(
-                    modifier
-                        .align(Alignment.Center)
-                        .padding(bottom = 40.dp)
-                        .background(ScreenBgOpacityColor)
-                )
-            } else {
-                LocationUtils.requestLocation(homeViewModel)
-            }
-
-             */
-
 
             showLocationDisabledSection = LocationUtils.areLocationPermissionsGranted()
             Log.d("TestTT","homeUiState.isLocationActivated :"
@@ -158,7 +142,7 @@ fun HomeScreen(
                 // LocationUtils.requestLocation(homeViewModel)
             }
 
-            MainActivity.activityInstance.getLocationDevice(homeViewModel)
+            getLocationDevice(homeViewModel)
 
             //LocationUtils.requestLocation(homeViewModel)
 

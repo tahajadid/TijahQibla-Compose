@@ -1,5 +1,6 @@
 package com.tahadeta.qiblatijah.ui.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -9,9 +10,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.ui.components.compass.QiblaCompass
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
+import com.tahadeta.qiblatijah.ui.screens.OnBoardingScreen
 import com.tahadeta.qiblatijah.ui.screens.SettingsScreen
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
@@ -20,12 +23,13 @@ import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtils.requestLocation
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
 @Composable
 fun DefaultNavHost(
     modifier: Modifier = Modifier,
     degrees: Int,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ScreenRoutes.Home.name,
+    startDestination: String = ScreenRoutes.Onboarding.name,
     isMagneticFieldSensorPresent: Boolean
 ) {
     NavHost(
@@ -33,6 +37,15 @@ fun DefaultNavHost(
         navController = navController,
         startDestination = startDestination,
     ){
+        composable(ScreenRoutes.Onboarding.name){
+            OnBoardingScreen(
+                onStartClick = {
+                    navController.popBackStack()
+                    navController.navigate(ScreenRoutes.Home.name)
+                },
+            )
+        }
+
         composable(ScreenRoutes.Home.name){
             HomeScreen(
                 degrees = degrees,
