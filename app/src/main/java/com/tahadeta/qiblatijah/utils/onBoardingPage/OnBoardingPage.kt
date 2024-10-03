@@ -1,4 +1,4 @@
-package com.tahadeta.qiblatijah.utils
+package com.tahadeta.qiblatijah.utils.onBoardingPage
 
 import androidx.annotation.DrawableRes
 import com.tahadeta.qiblatijah.R

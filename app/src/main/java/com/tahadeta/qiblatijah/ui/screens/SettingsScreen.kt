@@ -1,9 +1,8 @@
 package com.tahadeta.qiblatijah.ui.screens
 
-import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
-import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -46,6 +45,7 @@ import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.RightLabelColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
+import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.areLocationPermissionsGranted
 
 
 @Composable
@@ -154,37 +154,7 @@ fun SettingsScreen(
 
                     // set location permission
                     AddSpace(30)
-                    Text(
-                        text = stringResource(id = R.string.setting_location_title),
-                        modifier = Modifier.padding(start = 24.dp),
-                        color = RightLabelColor,
-                        fontFamily = katibehRegular,
-                        fontSize = 28.sp,
-                    )
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(6.dp)
-                            .padding(top = 4.dp, start = 24.dp)
-                            .background(RightLabelColor)
-                    )
-
-                    AddSpace(10)
-
-                    Button(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
-                        onClick = {
-                            MainActivity.activityInstance.callSettings()
-                        })
-                    {
-
-                        Text(
-                            text = "Donner access a la localisation",
-                            color = ScreenBgColor
-                        )
-                    }
+                    LocationSettingsSection(!areLocationPermissionsGranted())
                 }
             }
         }
@@ -194,6 +164,50 @@ fun SettingsScreen(
 @Composable
 fun AddSpace(space: Int){
     Spacer(modifier = Modifier.height(space.dp))
+}
+
+
+@Composable
+fun LocationSettingsSection(isVisible: Boolean) {
+    AnimatedVisibility(
+        visible = isVisible,
+        enter = fadeIn(),
+        exit = fadeOut()
+    ) {
+        Column(){
+            Text(
+                text = stringResource(id = R.string.setting_location_title),
+                modifier = Modifier.padding(start = 24.dp),
+                color = RightLabelColor,
+                fontFamily = katibehRegular,
+                fontSize = 28.sp,
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(6.dp)
+                    .padding(top = 4.dp, start = 24.dp)
+                    .background(RightLabelColor)
+            )
+
+            AddSpace(10)
+
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                onClick = {
+                    MainActivity.activityInstance.callSettings()
+                })
+            {
+
+                Text(
+                    text = stringResource(id = R.string.setting_location_button),
+                    color = ScreenBgColor
+                )
+            }
+        }
+    }
 }
 
 @Composable

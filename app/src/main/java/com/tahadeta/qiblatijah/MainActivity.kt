@@ -81,6 +81,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         }
     }
 
+    // function that redirect to settings to activate the location access
     fun callSettings(){
         try {
             this.startActivity(
@@ -167,7 +168,6 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         )
         SensorManager.getOrientation(rotationMatrix, mOrientationAngles)
     }
-
 
 
     private fun getDeviceLanguage(): String  {

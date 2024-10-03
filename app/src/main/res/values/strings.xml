@@ -27,14 +27,14 @@
     <string name="back">Back</string>
 
 
-    <string name="correct_direction">La direction exacte : 93°</string>
+    <string name="correct_direction">La direction exacte </string>
 
+    <!-- Settings -->
     <string name="setting_qibla_title">Qibla</string>
     <string name="settings_qibla_description">Qibla est la destination du fidèle lorsqu’il prie et se trouve à la Kaaba al-Mashraf musulmane de La Mecque. Au début de l’islam, la Qibla était la Maison Sainte avant que le prophète Muhammad émigre à Médine, donc Jérusalem a été appelée "le premier des deux baisers", la transformation de la Qibla a été 17 Rajab 2 ans d’immigration, dit sur 8 Muharram de la même année, pendant le deuxième bassin des prières de midi.</string>
-
     <string name="setting_language_title">Changer la langue de votre app</string>
-
     <string name="setting_location_title">Autoriser l’acces a la localisation</string>
+    <string name="setting_location_button">Donner access a la localisation</string>
 
     <string name="lang_ar">العربية</string>
     <string name="lang_fr">Français</string>
