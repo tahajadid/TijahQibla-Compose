@@ -31,7 +31,6 @@ import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgOpacityColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
-import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtils
 
 @Composable
 fun LocationRequestSectionHolder(

@@ -49,6 +49,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.Priority
+import com.tahadeta.qiblatijah.BuildConfig
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 
 
@@ -275,7 +276,7 @@ object LocationUtil {
                                 context.startActivity(
                                     Intent(
                                         Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                        //Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+                                        Uri.parse("package:" + BuildConfig.APPLICATION_ID)
                                     )
                                 )
                             } catch (e: Exception) {

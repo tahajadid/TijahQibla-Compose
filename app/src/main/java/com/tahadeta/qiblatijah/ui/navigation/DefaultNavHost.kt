@@ -19,7 +19,6 @@ import com.tahadeta.qiblatijah.ui.screens.SettingsScreen
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.languageUtils.changeLanguage
-import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtils.requestLocation
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 

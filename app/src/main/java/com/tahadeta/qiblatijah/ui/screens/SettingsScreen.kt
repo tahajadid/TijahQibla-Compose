@@ -1,6 +1,9 @@
 package com.tahadeta.qiblatijah.ui.screens
 
-import android.view.View
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,12 +26,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -36,17 +38,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tahadeta.qiblatijah.BuildConfig
 import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.R
-import com.tahadeta.qiblatijah.ui.components.LanguageSwitcher
 import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.RightLabelColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
-import com.tahadeta.qiblatijah.utils.PreferencesDataStore
-import com.tahadeta.qiblatijah.utils.languageUtils.LanguageSelection
-import kotlinx.coroutines.launch
 
 
 @Composable
@@ -55,7 +54,7 @@ fun SettingsScreen(
     onArrowBackClick: () -> Unit = {},
     onWidgetChoose: (String) -> Unit = {},
     onLanguageSwitchClick: () -> Unit = {},
-    layoutDirection : LayoutDirection = LayoutDirection.Rtl
+    layoutDirection : LayoutDirection = LayoutDirection.Ltr
     ) {
     CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
         // Your composable content here
@@ -107,13 +106,15 @@ fun SettingsScreen(
                     )
 
                     Box(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .height(6.dp)
                             .padding(top = 4.dp, start = 24.dp)
                             .background(RightLabelColor)
                     )
                     CorrectQiblaDescription()
 
+                    /*
                     // switch language settings
                     AddSpace(20)
 
@@ -149,6 +150,7 @@ fun SettingsScreen(
                                 } },
 
                     )
+                     */
 
                     // set location permission
                     AddSpace(30)
@@ -160,11 +162,29 @@ fun SettingsScreen(
                         fontSize = 28.sp,
                     )
                     Box(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .height(6.dp)
                             .padding(top = 4.dp, start = 24.dp)
                             .background(RightLabelColor)
                     )
+
+                    AddSpace(10)
+
+                    Button(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
+                        onClick = {
+                            MainActivity.activityInstance.callSettings()
+                        })
+                    {
+
+                        Text(
+                            text = "Donner access a la localisation",
+                            color = ScreenBgColor
+                        )
+                    }
                 }
             }
         }
