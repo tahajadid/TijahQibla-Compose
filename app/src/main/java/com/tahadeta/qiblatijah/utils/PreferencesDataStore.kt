@@ -3,6 +3,7 @@ package com.tahadeta.qiblatijah.utils
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -17,6 +18,8 @@ class PreferencesDataStore (val context: Context) {
     companion object {
         val WIDGET_KEY = stringPreferencesKey("selected_widget")
         val LANG_SELECTED = stringPreferencesKey("selected_widget")
+        val ONBOARDING_PASSED = booleanPreferencesKey("onboarding_passed")
+
     }
 
     val getWidgetName: Flow<String?> = context.dataStore.data
@@ -29,6 +32,18 @@ class PreferencesDataStore (val context: Context) {
             preferences[WIDGET_KEY] = name
         }
     }
+
+    val getOnboardingPassed: Flow<Boolean?> = context.dataStore.data
+        .map { preferences ->
+            preferences[ONBOARDING_PASSED]
+        }
+
+    suspend fun saveOnboardingPassed(isPassed: Boolean){
+        context.dataStore.edit { preferences ->
+            preferences[ONBOARDING_PASSED] = isPassed
+        }
+    }
+
 
 
     val getLanguageSelected: Flow<String?> = context.dataStore.data
