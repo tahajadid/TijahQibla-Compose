@@ -38,6 +38,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -54,6 +55,8 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.tahadeta.qiblatijah.ui.navigation.ScreenRoutes
+import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.NoPermissionDialog
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.createLocationRequest
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.fetchLastLocation
@@ -98,10 +101,18 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         activityInstance = this
 
         setContent {
+            // pass the composable
+            val dataStore = PreferencesDataStore(LocalContext.current)
+            val onboardingPassed by dataStore.getOnboardingPassed.collectAsState(initial = true)
+
+
             QiblaTijahTheme {
                 DefaultNavHost(
                     degrees = degrees.value,
                     isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
+                    startDestination = if(onboardingPassed == true)
+                        ScreenRoutes.Home.name
+                    else ScreenRoutes.Onboarding.name
                 )
             }
         }

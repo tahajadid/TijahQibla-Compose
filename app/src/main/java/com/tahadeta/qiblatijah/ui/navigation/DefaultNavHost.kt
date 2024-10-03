@@ -29,7 +29,7 @@ fun DefaultNavHost(
     modifier: Modifier = Modifier,
     degrees: Int,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ScreenRoutes.Onboarding.name,
+    startDestination: String = ScreenRoutes.Home.name,
     isMagneticFieldSensorPresent: Boolean
 ) {
     NavHost(
@@ -37,14 +37,6 @@ fun DefaultNavHost(
         navController = navController,
         startDestination = startDestination,
     ){
-        composable(ScreenRoutes.Onboarding.name){
-            OnBoardingScreen(
-                onStartClick = {
-                    navController.popBackStack()
-                    navController.navigate(ScreenRoutes.Home.name)
-                },
-            )
-        }
 
         composable(ScreenRoutes.Home.name){
             HomeScreen(
@@ -53,6 +45,21 @@ fun DefaultNavHost(
                 onMenuClick = {
                     navController.navigate(ScreenRoutes.Settings.name)
                 }
+            )
+        }
+
+        composable(ScreenRoutes.Onboarding.name){
+            val dataStore = PreferencesDataStore(LocalContext.current)
+            val coroutineScope = rememberCoroutineScope()
+
+            OnBoardingScreen(
+                onStartClick = {
+                    coroutineScope.launch {
+                        dataStore.saveOnboardingPassed(true)
+                    }
+                    navController.popBackStack()
+                    navController.navigate(ScreenRoutes.Home.name)
+                },
             )
         }
 
