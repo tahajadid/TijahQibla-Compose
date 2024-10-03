@@ -40,7 +40,6 @@ import com.tahadeta.qiblatijah.ui.theme.ScreenBgOpacityColor
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.getLocationDevice
-import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtils
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 
 @Composable
@@ -124,7 +123,7 @@ fun HomeScreen(
             }
 
 
-            showLocationDisabledSection = LocationUtils.areLocationPermissionsGranted()
+            //showLocationDisabledSection = LocationUtils.areLocationPermissionsGranted()
             Log.d("TestTT","homeUiState.isLocationActivated :"
                     + homeUiState.isLocationActivated)
 
