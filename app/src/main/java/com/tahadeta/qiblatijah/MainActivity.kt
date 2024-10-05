@@ -25,6 +25,7 @@ import android.util.Log
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.tahadeta.qiblatijah.ui.navigation.ScreenRoutes
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import java.util.Locale
@@ -48,6 +49,8 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen()
 
         // update the language
         // changeLanguage(this,"ar")
