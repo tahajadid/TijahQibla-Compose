@@ -46,6 +46,7 @@ import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 fun HomeScreen(
     modifier: Modifier = Modifier,
     degrees: Int,
+    pointerInitDegree: Int,
     isMagneticFieldSensorPresent: Boolean,
     homeViewModel: HomeViewModel = viewModel(),
     onMenuClick: () -> Unit = {},
@@ -106,8 +107,9 @@ fun HomeScreen(
 
                 QiblaCompass(
                     degrees = degrees,
+                    pointerInitDegree = pointerInitDegree,
                     imageSrc = getTheRightImage(degrees),
-                    rotateCompass = homeUiState.isLocationActivated
+                    rotateCompass = homeUiState.isLocationActivated,
                 )
 
 
@@ -159,6 +161,7 @@ fun HomeScreenPreview() {
     QiblaTijahTheme {
         HomeScreen(
             modifier = Modifier,
+            20,
             20,
             true,
             HomeViewModel(),

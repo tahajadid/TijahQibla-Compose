@@ -75,6 +75,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
             QiblaTijahTheme {
                 DefaultNavHost(
                     degrees = degrees.value,
+                    pointerInitDegree = degrees.value,
                     isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
                     startDestination = if(onboardingPassed == true)
                         ScreenRoutes.Home.name

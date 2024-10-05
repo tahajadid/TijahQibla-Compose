@@ -2,6 +2,7 @@ package com.tahadeta.qiblatijah.ui.components.compass
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,6 +35,7 @@ import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 fun QiblaCompass(
     modifier: Modifier = Modifier,
     degrees: Int = 0,
+    pointerInitDegree : Int = 0,
     imageSrc: Int?,
     rotateCompass: Boolean,
 ) {
@@ -55,14 +57,26 @@ fun QiblaCompass(
                 contentDescription = "kaaba logo",
                 )
 
-            // background image
-            Image(
-                painter = painterResource(id = imageSrc ?: getTheRightImage(degrees)),
-                contentDescription = "compass image",
-                modifier = Modifier
-                    .offset(0.dp, (-16).dp)
-                    .rotate(rotationAngle),
+            Box(){
+                // background image
+                Image(
+                    painter = painterResource(id = imageSrc ?: getTheRightImage(degrees)),
+                    contentDescription = "compass image",
+                    modifier = Modifier
+                        .offset(0.dp, (-16).dp)
+                        .rotate(rotationAngle),
                 )
+
+                // pointer image
+                Image(
+                    painter = painterResource(id = R.drawable.only_indicator),
+                    contentDescription = "compass image",
+                    modifier = Modifier
+                        .offset(0.dp, (-16).dp)
+                        .rotate(pointerInitDegree.toFloat()),
+                )
+            }
+
 
             if(rotateCompass){
                 // add vertical space
