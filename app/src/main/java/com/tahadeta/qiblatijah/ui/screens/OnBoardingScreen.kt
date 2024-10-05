@@ -21,7 +21,7 @@ import com.google.accompanist.pager.*
 import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
-import com.tahadeta.qiblatijah.utils.OnBoardingPage
+import com.tahadeta.qiblatijah.utils.onBoardingPage.OnBoardingPage
 
 
 @ExperimentalAnimationApi

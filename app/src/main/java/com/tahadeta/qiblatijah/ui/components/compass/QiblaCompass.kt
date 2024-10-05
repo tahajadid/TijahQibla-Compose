@@ -33,7 +33,7 @@ import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 @Composable
 fun QiblaCompass(
     modifier: Modifier = Modifier,
-    degrees: Int = 193,
+    degrees: Int = 0,
     imageSrc: Int?,
     rotateCompass: Boolean,
 ) {
@@ -73,11 +73,10 @@ fun QiblaCompass(
 
                 // show message for the user
                 Text(
-                    text = stringResource(id = R.string.correct_direction),
+                    text = stringResource(id = R.string.correct_direction) + " °",
                     color = RightLabelColor,
                     fontFamily = katibehRegular,
-                    fontSize = 24.sp,
-                    )
+                    fontSize = 24.sp)
             }
         }
     }

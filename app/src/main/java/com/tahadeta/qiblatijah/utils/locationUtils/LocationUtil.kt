@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.provider.Settings
@@ -38,6 +39,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.core.app.ActivityCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
@@ -50,6 +52,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.Priority
 import com.tahadeta.qiblatijah.BuildConfig
+import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 
 
@@ -292,6 +295,20 @@ object LocationUtil {
                 }
             }
         }
+    }
+
+    /**
+     * Checks if location permissions are granted.
+     *
+     * @return true if both ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION permissions are granted; false otherwise.
+     */
+    fun areLocationPermissionsGranted(): Boolean {
+        return (ActivityCompat.checkSelfPermission(
+            MainActivity.activityInstance, Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(
+                    MainActivity.activityInstance, Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED)
     }
 
 }
