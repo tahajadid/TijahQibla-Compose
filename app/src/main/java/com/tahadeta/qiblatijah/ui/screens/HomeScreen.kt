@@ -108,7 +108,7 @@ fun HomeScreen(
                 QiblaCompass(
                     degrees = degrees,
                     pointerInitDegree = pointerInitDegree,
-                    imageSrc = getTheRightImage(degrees),
+                    imageSrc = getTheRightImage(degrees, 93),
                     rotateCompass = homeUiState.isLocationActivated,
                 )
 

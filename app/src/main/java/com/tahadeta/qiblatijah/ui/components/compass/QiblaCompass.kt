@@ -60,7 +60,7 @@ fun QiblaCompass(
             Box(){
                 // background image
                 Image(
-                    painter = painterResource(id = imageSrc ?: getTheRightImage(degrees)),
+                    painter = painterResource(id = imageSrc ?: getTheRightImage(degrees,93)),
                     contentDescription = "compass image",
                     modifier = Modifier
                         .offset(0.dp, (-16).dp)
@@ -73,7 +73,10 @@ fun QiblaCompass(
                     contentDescription = "compass image",
                     modifier = Modifier
                         .offset(0.dp, (-16).dp)
-                        .rotate(pointerInitDegree.toFloat()),
+                        // the first Rotation depending on the Lat and Lon of the user
+                        .rotate(pointerInitDegree.toFloat())
+                        // the muttable angle rotation
+                        .rotate(rotationAngle),
                 )
             }
 
@@ -127,7 +130,7 @@ fun DegreeAndDirection(degrees: Int) {
 fun CompassAnimationPreview() {
     QiblaTijahTheme {
         QiblaCompass(
-            imageSrc = R.drawable.correct_compass,
+            imageSrc = R.drawable.correct_compass_bg,
             rotateCompass = false
         )
     }

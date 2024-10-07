@@ -3,9 +3,10 @@ package com.tahadeta.qiblatijah.utils.compassUtils
 import com.tahadeta.qiblatijah.R
 
 fun getTheRightImage(
-    degrees: Int,
+    actualDegrees: Int,
+    qiblaDegree: Int
 ): Int =
-    when (degrees) {
-        in 91..95 -> R.drawable.correct_compass
-        else -> R.drawable.default_compass
+    when (actualDegrees) {
+        in (qiblaDegree-2)..(qiblaDegree+2) -> R.drawable.correct_compass_bg
+        else -> R.drawable.default_compass_bg
     }
