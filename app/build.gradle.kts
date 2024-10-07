@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
@@ -87,4 +88,15 @@ dependencies {
     implementation("com.google.accompanist:accompanist-pager-indicators:0.36.0")
 
     implementation("androidx.core:core-splashscreen:1.0.0")
+
+    // dagger hilt - https://developer.android.com/training/dependency-injection/hilt-android#kts
+    implementation("com.google.dagger:hilt-android:2.52")
+    annotationProcessor("com.google.dagger:hilt-android-compiler:2.52")
+
+    // compose lifecycle - https://developer.android.com/jetpack/androidx/releases/lifecycle#lifecycle_viewmodel_compose_version_100_2
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${rootProject.extra["compose_lifecycle_version"]}")
+}
+
+kapt {
+    correctErrorTypes = true
 }

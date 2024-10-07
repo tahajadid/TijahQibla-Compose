@@ -53,6 +53,8 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.Priority
 import com.tahadeta.qiblatijah.BuildConfig
 import com.tahadeta.qiblatijah.MainActivity
+import com.tahadeta.qiblatijah.utils.userLatitude
+import com.tahadeta.qiblatijah.utils.userLongitude
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 
 
@@ -76,7 +78,10 @@ object LocationUtil {
         val locationCallback = remember {
             object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
+                    userLatitude = locationResult.lastLocation?.latitude
+                    userLongitude = locationResult.lastLocation?.longitude
                     Log.d("onLocationResult", "locationResult.latitude: ${locationResult.lastLocation?.latitude}")
+                    Log.d("onLocationResult", "locationResult.longitude: ${locationResult.lastLocation?.longitude}")
                     locationFromGps = locationResult.lastLocation
                 }
             }

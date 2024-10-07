@@ -38,8 +38,11 @@ import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgOpacityColor
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
+import com.tahadeta.qiblatijah.utils.compassUtils.calculateBearing
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.getLocationDevice
+import com.tahadeta.qiblatijah.utils.userLatitude
+import com.tahadeta.qiblatijah.utils.userLongitude
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 
 @Composable
@@ -54,9 +57,6 @@ fun HomeScreen(
 
     val homeUiState by homeViewModel.uiState.collectAsState()
 
-    var showLocationDisabledSection by remember {
-        mutableStateOf(false)
-    }
 
     Scaffold(
         backgroundColor = ScreenBgColor,
@@ -97,21 +97,15 @@ fun HomeScreen(
                 // check for the location
                 //LocationUtils.requestLocation()
 
-                // pass the composable
-                //compassComposable()
+                val pointerInitDegree = calculateBearing(userLatitude?:0.0,userLongitude?:0.0).toInt()
 
-
-                // pass the composable
-                val dataStore = PreferencesDataStore(LocalContext.current)
-                val selectedWidget by dataStore.getWidgetName.collectAsState(initial = null)
-
+                Log.d("TestpointerInitDegree","pointerInitDegree : "+ pointerInitDegree)
                 QiblaCompass(
                     degrees = degrees,
                     pointerInitDegree = pointerInitDegree,
-                    imageSrc = getTheRightImage(degrees, 93),
+                    imageSrc = getTheRightImage(degrees, pointerInitDegree),
                     rotateCompass = homeUiState.isLocationActivated,
                 )
-
 
                 // in case of non existing of MagneticFieldSensor we should show a dialog alert
                 if (!isMagneticFieldSensorPresent) {
@@ -144,9 +138,6 @@ fun HomeScreen(
             }
 
             getLocationDevice(homeViewModel)
-
-            //LocationUtils.requestLocation(homeViewModel)
-
 
         }
     }
