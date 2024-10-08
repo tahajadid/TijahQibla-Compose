@@ -1,6 +1,7 @@
-package com.tahadeta.qiblatijah
+package com.tahadeta.qiblatijah.di
 
 import android.content.Context
+import com.tahadeta.qiblatijah.data.DataStoreRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

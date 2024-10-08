@@ -1,4 +1,4 @@
-package com.tahadeta.qiblatijah
+package com.tahadeta.qiblatijah.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
