@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalPagerApi::class)
+
 package com.tahadeta.qiblatijah.ui.components.customDialog
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -23,12 +26,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CustomDialogAlert(
     modifier: Modifier = Modifier,

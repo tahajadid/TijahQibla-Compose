@@ -17,18 +17,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.google.accompanist.pager.*
+import com.tahadeta.qiblatijah.ui.navigation.ScreenRoutes
 import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
 import com.tahadeta.qiblatijah.utils.onBoardingPage.OnBoardingPage
+import com.tahadeta.qiblatijah.viewModel.OnBoardingViewModel
 
 
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
 fun OnBoardingScreen(
-    onStartClick: () -> Unit = {}
+    onStartClick: () -> Unit = {},
+    navController: NavHostController,
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     val pages = listOf(
         OnBoardingPage.First,
@@ -58,11 +64,16 @@ fun OnBoardingScreen(
             modifier = Modifier.weight(1f),
             pagerState = pagerState,
         ) {
-            onStartClick()
+            // onStartClick()
             //homeViewModel.saveOnBoardingState(completed = true)
             //navController.popBackStack()
             // navController.navigate(ScreenRoutes.Home.route)
+
+            onBoardingViewModel.saveOnBoardingState(completed = true)
+            navController.popBackStack()
+            navController.navigate(ScreenRoutes.Home.name)
         }
+
     }
 }
 

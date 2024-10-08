@@ -9,26 +9,23 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.tahadeta.qiblatijah.MainActivity
-import com.tahadeta.qiblatijah.ui.components.compass.QiblaCompass
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.screens.OnBoardingScreen
 import com.tahadeta.qiblatijah.ui.screens.SettingsScreen
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
-import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.languageUtils.changeLanguage
-import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
+@ExperimentalAnimationApi
+@ExperimentalPagerApi
 @Composable
 fun DefaultNavHost(
     modifier: Modifier = Modifier,
     degrees: Int,
     pointerInitDegree: Int,
-    navController: NavHostController = rememberNavController(),
+    navController: NavHostController,
     startDestination: String = ScreenRoutes.Home.name,
     isMagneticFieldSensorPresent: Boolean
 ) {
@@ -61,6 +58,7 @@ fun DefaultNavHost(
                     navController.popBackStack()
                     navController.navigate(ScreenRoutes.Home.name)
                 },
+                navController
             )
         }
 
