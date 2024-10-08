@@ -22,15 +22,25 @@ import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import android.os.LocaleList
 import android.provider.Settings
 import android.util.Log
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.tahadeta.qiblatijah.ui.navigation.ScreenRoutes
 import com.tahadeta.qiblatijah.utils.PreferencesDataStore
+import com.tahadeta.qiblatijah.viewModel.SplashViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
+@ExperimentalAnimationApi
+@ExperimentalPagerApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
@@ -47,15 +57,26 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         const val LANGUAGE_INDEX = 0
     }
 
+    @Inject
+    lateinit var splashViewModel: SplashViewModel
+
+    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        installSplashScreen()
+        Log.d("TestValue","isLoading : "+splashViewModel.isLoading.value)
+
+        installSplashScreen().setKeepOnScreenCondition {
+            !splashViewModel.isLoading.value
+        }
+
+        Log.d("TestValue","isLoading : "+splashViewModel.isLoading.value)
+
 
         // update the language
         // changeLanguage(this,"ar")
 
-        setPerAppLanguage("fr")
+        //setPerAppLanguage("fr")
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
@@ -67,19 +88,15 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         activityInstance = this
 
         setContent {
-            // pass the composable
-            val dataStore = PreferencesDataStore(LocalContext.current)
-            val onboardingPassed by dataStore.getOnboardingPassed.collectAsState(initial = true)
-
-
             QiblaTijahTheme {
+                val screen by splashViewModel.startDestination
+                val navController = rememberNavController()
                 DefaultNavHost(
+                    navController = navController,
                     degrees = degrees.value,
                     pointerInitDegree = degrees.value,
                     isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
-                    startDestination = if(onboardingPassed == true)
-                        ScreenRoutes.Home.name
-                    else ScreenRoutes.Onboarding.name
+                    startDestination = screen
                 )
             }
         }

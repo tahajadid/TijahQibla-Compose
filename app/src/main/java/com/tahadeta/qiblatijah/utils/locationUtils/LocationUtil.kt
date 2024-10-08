@@ -16,6 +16,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.app.ActivityCompat
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
@@ -56,6 +58,7 @@ import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.utils.userLatitude
 import com.tahadeta.qiblatijah.utils.userLongitude
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
+import kotlin.coroutines.coroutineContext
 
 
 object LocationUtil {
@@ -307,6 +310,7 @@ object LocationUtil {
      *
      * @return true if both ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION permissions are granted; false otherwise.
      */
+    @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
     fun areLocationPermissionsGranted(): Boolean {
         return (ActivityCompat.checkSelfPermission(
             MainActivity.activityInstance, Manifest.permission.ACCESS_FINE_LOCATION
