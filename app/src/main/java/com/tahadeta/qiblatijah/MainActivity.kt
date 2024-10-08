@@ -23,15 +23,16 @@ import android.os.LocaleList
 import android.provider.Settings
 import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.tahadeta.qiblatijah.ui.navigation.ScreenRoutes
-import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.viewModel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -66,8 +67,10 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 
         Log.d("TestValue","isLoading : "+splashViewModel.isLoading.value)
 
-        installSplashScreen().setKeepOnScreenCondition {
-            !splashViewModel.isLoading.value
+        installSplashScreen().apply {
+            setKeepOnScreenCondition{
+                splashViewModel.isLoading.value
+            }
         }
 
         Log.d("TestValue","isLoading : "+splashViewModel.isLoading.value)
@@ -91,6 +94,17 @@ class MainActivity : ComponentActivity(), SensorEventListener {
             QiblaTijahTheme {
                 val screen by splashViewModel.startDestination
                 val navController = rememberNavController()
+
+                /*
+                var isNavigating by remember { mutableStateOf(false) }
+                LaunchedEffect(splashViewModel.isLoading.value) {
+                    if (!splashViewModel.isLoading.value && !isNavigating) {
+                        isNavigating = true
+                        navController.navigate(screen)
+                    }
+                }
+                 */
+
                 DefaultNavHost(
                     navController = navController,
                     degrees = degrees.value,

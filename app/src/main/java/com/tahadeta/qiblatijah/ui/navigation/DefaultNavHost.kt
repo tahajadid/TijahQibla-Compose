@@ -2,7 +2,6 @@ package com.tahadeta.qiblatijah.ui.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
@@ -26,7 +25,7 @@ fun DefaultNavHost(
     degrees: Int,
     pointerInitDegree: Int,
     navController: NavHostController,
-    startDestination: String = ScreenRoutes.Home.name,
+    startDestination: String = Screen.Home.route,
     isMagneticFieldSensorPresent: Boolean
 ) {
     NavHost(
@@ -35,18 +34,18 @@ fun DefaultNavHost(
         startDestination = startDestination,
     ){
 
-        composable(ScreenRoutes.Home.name){
+        composable(route = Screen.Home.route){
             HomeScreen(
                 degrees = degrees,
                 pointerInitDegree = pointerInitDegree,
                 isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
                 onMenuClick = {
-                    navController.navigate(ScreenRoutes.Settings.name)
+                    navController.navigate(Screen.Settings.route)
                 }
             )
         }
 
-        composable(ScreenRoutes.Onboarding.name){
+        composable(route = Screen.Onboarding.route){
             val dataStore = PreferencesDataStore(LocalContext.current)
             val coroutineScope = rememberCoroutineScope()
 
@@ -56,13 +55,13 @@ fun DefaultNavHost(
                         dataStore.saveOnboardingPassed(true)
                     }
                     navController.popBackStack()
-                    navController.navigate(ScreenRoutes.Home.name)
+                    navController.navigate(Screen.Home.route)
                 },
                 navController
             )
         }
 
-        composable(ScreenRoutes.Settings.name){
+        composable(route = Screen.Settings.route){
             val dataStore = PreferencesDataStore(LocalContext.current)
 
             val coroutineScope = rememberCoroutineScope()

@@ -88,25 +88,20 @@ dependencies {
     implementation(libs.playServicesLocation)
     implementation(libs.accompanistPermissions)
 
-    //implementation("com.google.accompanist:accompanist-navigation-animation:0.21.1-beta")
-
-
-
+    // viewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
+    // pager indicators
     implementation("com.google.accompanist:accompanist-pager:0.24.2-alpha")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.24.2-alpha")
 
+    // splash
     implementation("androidx.core:core-splashscreen:1.0.0")
 
-    //Hilt
-    val hiltVersion = 2.47
-    implementation ("com.google.dagger:hilt-android:$hiltVersion")
-    kapt ("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    // dagger hilt
+    implementation ("com.google.dagger:hilt-android:2.47")
+    kapt ("com.google.dagger:hilt-android-compiler:2.47")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
-
-    // compose lifecycle - https://developer.android.com/jetpack/androidx/releases/lifecycle#lifecycle_viewmodel_compose_version_100_2
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${rootProject.extra["compose_lifecycle_version"]}")
 }
 
 kapt {
