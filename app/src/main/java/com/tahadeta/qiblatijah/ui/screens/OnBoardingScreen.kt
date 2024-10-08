@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.*
-import com.tahadeta.qiblatijah.ui.navigation.ScreenRoutes
+import com.tahadeta.qiblatijah.ui.navigation.Screen
 import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
@@ -71,7 +71,7 @@ fun OnBoardingScreen(
 
             onBoardingViewModel.saveOnBoardingState(completed = true)
             navController.popBackStack()
-            navController.navigate(ScreenRoutes.Home.name)
+            navController.navigate(Screen.Home.route)
         }
 
     }
