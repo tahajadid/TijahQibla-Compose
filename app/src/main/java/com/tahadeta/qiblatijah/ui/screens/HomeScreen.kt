@@ -137,7 +137,8 @@ fun HomeScreen(
                 // LocationUtils.requestLocation(homeViewModel)
             }
 
-            // getLocationDevice(homeViewModel)
+
+            getLocationDevice(homeViewModel)
 
         }
     }
