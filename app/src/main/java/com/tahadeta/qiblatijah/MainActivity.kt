@@ -95,7 +95,8 @@ class MainActivity : ComponentActivity(), SensorEventListener {
                 val screen by splashViewModel.startDestination
                 val navController = rememberNavController()
 
-                /*
+
+                // add lunch effect
                 var isNavigating by remember { mutableStateOf(false) }
                 LaunchedEffect(splashViewModel.isLoading.value) {
                     if (!splashViewModel.isLoading.value && !isNavigating) {
@@ -103,7 +104,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
                         navController.navigate(screen)
                     }
                 }
-                 */
+
 
                 DefaultNavHost(
                     navController = navController,

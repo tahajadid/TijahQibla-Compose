@@ -38,4 +38,11 @@
     <string name="lang_ar">العربية</string>
     <string name="lang_fr">Français</string>
 
+    <!-- Location -->
+    <string name="location_refused_title">Autorisation refusée. Accédez aux paramètres pour activer.</string>
+    <string name="location_refused_parametrs">Allez dans les paramètre</string>
+    <string name="location_refused_allow">Permettre a sauvegarder</string>
+
+    <string name="dialog_location">Cette application nécessite une autorisation de localisation</string>
+    <string name="dialog_saving">Permettre a sauvegarder</string>
 </resources>
