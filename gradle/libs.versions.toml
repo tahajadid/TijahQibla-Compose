@@ -1,5 +1,10 @@
 [versions]
+accompanistPagerIndicatorsVersion = "0.36.0"
 agp = "8.5.1"
+coreSplashscreenVersion = "1.0.0"
+hiltAndroidCompilerVersion = "2.47"
+hiltAndroidVersion = "2.47"
+hiltNavigationComposeVersion = "1.0.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -11,13 +16,21 @@ composeBom = "2024.04.01"
 androidx-navigation = "2.7.7"
 androidx-datastore-preferences = "1.0.0"
 appcompat = "1.7.0"
+lifecycleViewmodelComposeVersion = "2.6.1"
 playServicesLocationversion = "21.1.0"
 
 locationversion= "21.1.0"
 accompanistPermissionsVersion = "0.35.0-alpha"
 
 [libraries]
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPagerIndicatorsVersion" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPagerIndicatorsVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreenVersion" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelComposeVersion" }
+dagger-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompilerVersion" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

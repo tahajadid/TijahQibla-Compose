@@ -89,19 +89,19 @@ dependencies {
     implementation(libs.accompanistPermissions)
 
     // viewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // pager indicators
-    implementation("com.google.accompanist:accompanist-pager:0.24.2-alpha")
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.24.2-alpha")
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
 
     // splash
-    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation(libs.androidx.core.splashscreen)
 
     // dagger hilt
-    implementation ("com.google.dagger:hilt-android:2.47")
-    kapt ("com.google.dagger:hilt-android-compiler:2.47")
-    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation (libs.hilt.android)
+    kapt (libs.dagger.hilt.android.compiler)
+    implementation (libs.androidx.hilt.navigation.compose)
 }
 
 kapt {
