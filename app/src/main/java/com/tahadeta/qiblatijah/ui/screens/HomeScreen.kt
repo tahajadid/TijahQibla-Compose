@@ -94,12 +94,14 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.Center
             ) {
 
-                // check for the location
-                //LocationUtils.requestLocation()
 
+                // get current user location
+                getLocationDevice(homeViewModel)
+
+                // calculating the right kaaba angle
                 val pointerInitDegree = calculateBearing(userLatitude?:0.0,userLongitude?:0.0).toInt()
-
                 Log.d("TestpointerInitDegree","pointerInitDegree : "+ pointerInitDegree)
+
                 QiblaCompass(
                     degrees = degrees,
                     pointerInitDegree = pointerInitDegree,
@@ -114,8 +116,6 @@ fun HomeScreen(
                         imageSrc = R.drawable.sad_icon
                     )
                 }
-
-
             }
 
 
@@ -136,10 +136,6 @@ fun HomeScreen(
 
                 // LocationUtils.requestLocation(homeViewModel)
             }
-
-
-            getLocationDevice(homeViewModel)
-
         }
     }
 }
