@@ -16,20 +16,18 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.ui.components.LocationRequestSectionHolder
 import com.tahadeta.qiblatijah.ui.components.customDialog.CustomDialogAlert
@@ -37,7 +35,6 @@ import com.tahadeta.qiblatijah.ui.components.compass.QiblaCompass
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgOpacityColor
-import com.tahadeta.qiblatijah.utils.PreferencesDataStore
 import com.tahadeta.qiblatijah.utils.compassUtils.calculateBearing
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.getLocationDevice
@@ -81,9 +78,28 @@ fun HomeScreen(
         }
     ) { padding ->
 
+        // Linear Progress Indicator when the location is collecting
         Box(modifier = modifier
             .fillMaxSize())
         {
+            if(!homeUiState.isLocationCollected && homeUiState.isLocationActivated){
+                Column(modifier = modifier
+                    .padding(bottom = 20.dp)
+                    .align(Alignment.Center),
+                    horizontalAlignment = Alignment.CenterHorizontally) {
+
+                    Text(text = "Prendre la localisation..")
+
+                    LinearProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 40.dp),
+                        color = Color.Black,
+                        trackColor = Color.Gray,
+                    )
+                }
+            }
+
 
             Column(
                 modifier = modifier
@@ -118,10 +134,6 @@ fun HomeScreen(
             }
 
 
-            //showLocationDisabledSection = LocationUtils.areLocationPermissionsGranted()
-            Log.d("TestTT","homeUiState.isLocationActivated :"
-                    + homeUiState.isLocationActivated)
-
             if(!(homeUiState.isLocationActivated)){
                 // in case of the user does not give the app the location access
                 // a section should be appear to remind him that the compass cannot work
@@ -138,8 +150,6 @@ fun HomeScreen(
         }
     }
 }
-
-
 
 
 @Composable
