@@ -12,25 +12,14 @@ class HomeViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(CompassUiState())
     val uiState: StateFlow<CompassUiState> = _uiState.asStateFlow()
 
-    /*
-    private val _isLoading: MutableState<Boolean> = mutableStateOf(true)
-    val isLoading: State<Boolean> = _isLoading
 
-    init {
-        viewModelScope.launch {
-            repository.readOnBoardingState().collect { completed ->
-                if (completed) {
-                    Log.d("TestValue","isLoading (completed) in viewModelScope: "+isLoading.value)
-                    _onBoardingCompleted.value = true
-                } else {
-                    Log.d("TestValue","isLoading (!completed) in viewModelScope: "+isLoading.value)
-                    _onBoardingCompleted.value = false
-                }
-                _isLoading.value = false
-            }
+    fun updateLocationCollected(isLocationCollected: Boolean){
+        _uiState.update { currentState ->
+            currentState.copy(
+                isLocationCollected = isLocationCollected
+            )
         }
     }
-     */
 
     fun updateLocationView(isLocationAccepted: Boolean){
         _uiState.update { currentState ->
@@ -39,13 +28,4 @@ class HomeViewModel : ViewModel() {
             )
         }
     }
-
-    fun updateRightAngle(rightAngle: Int){
-        _uiState.update { currentState ->
-            currentState.copy(
-                rightAngle = rightAngle
-            )
-        }
-    }
-
 }

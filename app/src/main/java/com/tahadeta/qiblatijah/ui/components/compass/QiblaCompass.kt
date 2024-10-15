@@ -90,7 +90,8 @@ fun QiblaCompass(
 
                 // show message for the user
                 Text(
-                    text = stringResource(id = R.string.correct_direction) + " °",
+                    text = stringResource(id = R.string.correct_direction)
+                            + " $pointerInitDegree°",
                     color = RightLabelColor,
                     fontFamily = katibehRegular,
                     fontSize = 24.sp)

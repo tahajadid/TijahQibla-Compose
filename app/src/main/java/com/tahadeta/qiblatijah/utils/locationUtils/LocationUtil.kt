@@ -89,6 +89,8 @@ object LocationUtil {
                 override fun onLocationResult(locationResult: LocationResult) {
                     userLatitude = locationResult.lastLocation?.latitude
                     userLongitude = locationResult.lastLocation?.longitude
+                    homeViewModel.updateLocationCollected(true)
+
                     Log.d("onLocationResult", "locationResult.latitude: ${locationResult.lastLocation?.latitude}")
                     Log.d("onLocationResult", "locationResult.longitude: ${locationResult.lastLocation?.longitude}")
                     locationFromGps = locationResult.lastLocation
