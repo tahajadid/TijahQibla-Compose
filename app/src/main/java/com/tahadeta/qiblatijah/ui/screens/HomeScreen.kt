@@ -93,8 +93,6 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-
-
                 // get current user location
                 getLocationDevice(homeViewModel)
 
@@ -102,12 +100,15 @@ fun HomeScreen(
                 val pointerInitDegree = calculateBearing(userLatitude?:0.0,userLongitude?:0.0).toInt()
                 Log.d("TestpointerInitDegree","pointerInitDegree : "+ pointerInitDegree)
 
-                QiblaCompass(
-                    degrees = degrees,
-                    pointerInitDegree = pointerInitDegree,
-                    imageSrc = getTheRightImage(degrees, pointerInitDegree),
-                    rotateCompass = homeUiState.isLocationActivated,
-                )
+                // in case of getting Lat & Long of the user the Compass work
+                if(homeUiState.isLocationCollected){
+                    QiblaCompass(
+                        degrees = degrees,
+                        pointerInitDegree = pointerInitDegree,
+                        imageSrc = getTheRightImage(degrees, pointerInitDegree),
+                        rotateCompass = homeUiState.isLocationActivated,
+                    )
+                }
 
                 // in case of non existing of MagneticFieldSensor we should show a dialog alert
                 if (!isMagneticFieldSensorPresent) {
