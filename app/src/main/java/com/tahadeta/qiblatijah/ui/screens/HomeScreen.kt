@@ -49,7 +49,6 @@ import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 fun HomeScreen(
     modifier: Modifier = Modifier,
     degrees: Int,
-    pointerInitDegree: Int,
     isMagneticFieldSensorPresent: Boolean,
     homeViewModel: HomeViewModel = viewModel(),
     onMenuClick: () -> Unit = {},
@@ -100,15 +99,14 @@ fun HomeScreen(
                 val pointerInitDegree = calculateBearing(userLatitude?:0.0,userLongitude?:0.0).toInt()
                 Log.d("TestpointerInitDegree","pointerInitDegree : "+ pointerInitDegree)
 
-                // in case of getting Lat & Long of the user the Compass work
-                if(homeUiState.isLocationCollected){
-                    QiblaCompass(
-                        degrees = degrees,
-                        pointerInitDegree = pointerInitDegree,
-                        imageSrc = getTheRightImage(degrees, pointerInitDegree),
-                        rotateCompass = homeUiState.isLocationActivated,
-                    )
-                }
+                // in case of getting Lat & Long of the user we show the clear Compass
+                QiblaCompass(
+                    degrees = degrees,
+                    pointerInitDegree = pointerInitDegree,
+                    imageSrc = getTheRightImage(degrees, pointerInitDegree),
+                    rotateCompass = homeUiState.isLocationActivated,
+                    isLocationCollected = homeUiState.isLocationCollected
+                )
 
                 // in case of non existing of MagneticFieldSensor we should show a dialog alert
                 if (!isMagneticFieldSensorPresent) {
@@ -150,7 +148,6 @@ fun HomeScreenPreview() {
     QiblaTijahTheme {
         HomeScreen(
             modifier = Modifier,
-            20,
             20,
             true,
             HomeViewModel(),

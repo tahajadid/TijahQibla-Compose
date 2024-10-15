@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 fun DefaultNavHost(
     modifier: Modifier = Modifier,
     degrees: Int,
-    pointerInitDegree: Int,
     navController: NavHostController,
     startDestination: String = Screen.Home.route,
     isMagneticFieldSensorPresent: Boolean
@@ -37,7 +36,6 @@ fun DefaultNavHost(
         composable(route = Screen.Home.route){
             HomeScreen(
                 degrees = degrees,
-                pointerInitDegree = pointerInitDegree,
                 isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
                 onMenuClick = {
                     navController.navigate(Screen.Settings.route)
