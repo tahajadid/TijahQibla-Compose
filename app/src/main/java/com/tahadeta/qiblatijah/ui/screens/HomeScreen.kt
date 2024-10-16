@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
@@ -49,6 +51,7 @@ fun HomeScreen(
     isMagneticFieldSensorPresent: Boolean,
     homeViewModel: HomeViewModel = viewModel(),
     onMenuClick: () -> Unit = {},
+    onOnboardingClick: () -> Unit = {}
 ) {
 
     val homeUiState by homeViewModel.uiState.collectAsState()
@@ -65,14 +68,28 @@ fun HomeScreen(
             ) {
                 Icon(
                     modifier = Modifier
+                        .weight(0.3F)
                         .padding(24.dp)
                         .size(32.dp)
-                        .offset(0.dp, (20).dp)
+                        .offset(-20.dp, (30).dp)
+                        .clickable {
+                            onOnboardingClick()
+                        },
+                    imageVector = Icons.Default.Info,
+                    contentDescription = stringResource(R.string.menu),
+                )
+                Spacer(modifier = Modifier.weight(0.4F))
+                Icon(
+                    modifier = Modifier
+                        .weight(0.3F)
+                        .padding(24.dp)
+                        .size(32.dp)
+                        .offset(20.dp, (30).dp)
                         .clickable {
                             onMenuClick()
                         },
                     imageVector = Icons.Default.Settings,
-                    contentDescription = stringResource(R.string.menu)
+                    contentDescription = stringResource(R.string.menu),
                 )
             }
         }
@@ -119,7 +136,8 @@ fun HomeScreen(
                 QiblaCompass(
                     degrees = degrees,
                     pointerInitDegree = pointerInitDegree,
-                    imageSrc = getTheRightImage(degrees, pointerInitDegree),
+                    imageSrc = if(homeUiState.isLocationCollected)
+                        getTheRightImage(degrees, pointerInitDegree) else R.drawable.default_compass_bg,
                     rotateCompass = homeUiState.isLocationActivated,
                     isLocationCollected = homeUiState.isLocationCollected
                 )

@@ -1,5 +1,6 @@
 package com.tahadeta.qiblatijah.ui.components
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,12 +26,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.ui.theme.ColorBlue
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgOpacityColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
+import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.getLocationDevice
+import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 
 @Composable
 fun LocationRequestSectionHolder(
@@ -59,14 +64,13 @@ fun LocationRequestSectionHolder(
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun LocationRequestSection(
     modifier: Modifier = Modifier,
     isFrench: Boolean = true,
 ) {
-    var showComposable by remember { mutableStateOf(false) }
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -98,7 +102,7 @@ fun LocationRequestSection(
                 backgroundColor = ColorBlue
             ),
             onClick = {
-                showComposable = !showComposable
+                MainActivity.activityInstance.callSettings()
             }
         ) {
             Text(

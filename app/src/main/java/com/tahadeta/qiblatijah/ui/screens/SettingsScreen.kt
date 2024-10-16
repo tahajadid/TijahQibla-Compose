@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -36,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -43,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.R
+import com.tahadeta.qiblatijah.ui.theme.ColorBlue
 import com.tahadeta.qiblatijah.ui.theme.ColorCorrect
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.RightLabelColor
@@ -55,7 +58,6 @@ import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.areLocationPermi
 fun SettingsScreen(
     modifier: Modifier = Modifier,
     onArrowBackClick: () -> Unit = {},
-    onWidgetChoose: (String) -> Unit = {},
     onLanguageSwitchClick: () -> Unit = {},
     layoutDirection : LayoutDirection = LayoutDirection.Ltr
     ) {
@@ -196,17 +198,21 @@ fun LocationSettingsSection(isVisible: Boolean) {
 
             AddSpace(10)
 
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+            androidx.compose.material.Button(
+                modifier = Modifier.padding(horizontal = 20.dp).fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = ColorBlue
+                ),
                 onClick = {
                     MainActivity.activityInstance.callSettings()
-                })
-            {
-
-                Text(
-                    text = stringResource(id = R.string.setting_location_button),
+                }
+            ) {
+                androidx.compose.material3.Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    textAlign = TextAlign.Center,
+                    text = stringResource(R.string.setting_location_button),
+                    fontFamily = katibehRegular,
+                    fontSize = 20.sp,
                     color = ScreenBgColor
                 )
             }

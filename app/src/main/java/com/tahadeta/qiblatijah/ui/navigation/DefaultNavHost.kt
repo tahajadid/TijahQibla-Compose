@@ -39,6 +39,9 @@ fun DefaultNavHost(
                 isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
                 onMenuClick = {
                     navController.navigate(Screen.Settings.route)
+                },
+                onOnboardingClick = {
+                    navController.navigate(Screen.Onboarding.route)
                 }
             )
         }
@@ -60,18 +63,8 @@ fun DefaultNavHost(
         }
 
         composable(route = Screen.Settings.route){
-            val dataStore = PreferencesDataStore(LocalContext.current)
-
-            val coroutineScope = rememberCoroutineScope()
-
             SettingsScreen(
                 onArrowBackClick = { navController.popBackStack() },
-                onWidgetChoose = { name ->
-                    coroutineScope.launch {
-                        dataStore.saveWidgetName(name)
-                    }
-                    navController.popBackStack()
-                },
                 onLanguageSwitchClick = {
                     changeLanguage(MainActivity.activityInstance,"ar")
                     navController.popBackStack()
