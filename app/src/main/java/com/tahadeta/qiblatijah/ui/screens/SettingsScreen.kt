@@ -6,6 +6,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +35,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -51,6 +55,7 @@ import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.RightLabelColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
+import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.areLocationPermissionsGranted
 
 
@@ -88,78 +93,94 @@ fun SettingsScreen(
         ) { padding ->
 
             Surface() {
-                Column(
-                    modifier = modifier
-                        .fillMaxSize()
-                        .padding(padding)
-                        .verticalScroll(
-                            state = rememberScrollState(),
+                Box {
+
+                    // background Image
+                    Image(
+                        painter = painterResource(
+                            id = R.drawable.kaaba_logo
                         ),
-                    horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.Top
-                ) {
-
-                    // Header Description
-                    AddSpace(20)
-
-                    Text(
-                        text = stringResource(id = R.string.setting_qibla_title),
-                        modifier = Modifier.padding(start = 24.dp),
-                        color = RightLabelColor,
-                        fontFamily = katibehRegular,
-                        fontSize = 28.sp,
-                    )
-
-                    Box(
+                        contentDescription = "compass image",
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(6.dp)
-                            .padding(top = 4.dp, start = 24.dp)
-                            .background(RightLabelColor)
-                    )
-                    CorrectQiblaDescription()
-
-                    /*
-                    // switch language settings
-                    AddSpace(20)
-
-                    Text(
-                        text = stringResource(id = R.string.setting_language_title),
-                        modifier = Modifier.padding(start = 24.dp),
-                        color = RightLabelColor,
-                        fontFamily = katibehRegular,
-                        fontSize = 28.sp,
+                            .offset(40.dp, (20).dp)
+                            .alpha(0.2F)
+                            .align(Alignment.BottomEnd)
                     )
 
-                    Box(
-                        modifier = Modifier.fillMaxWidth()
-                            .height(6.dp)
-                            .padding(top = 4.dp, start = 24.dp)
-                            .background(RightLabelColor)
-                    )
-                    AddSpace(10)
+                    // list of settings
+                    Column(
+                        modifier = modifier
+                            .fillMaxSize()
+                            .padding(padding)
+                            .verticalScroll(
+                                state = rememberScrollState(),
+                            ),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.Top
+                    ) {
 
-                    val dataStore = PreferencesDataStore(LocalContext.current)
-                    val coroutineScope = rememberCoroutineScope()
+                        // Header Description
+                        AddSpace(20)
 
-                    LanguageSwitcher(
-                        modifier = Modifier
-                            .height(60.dp)
-                            .padding(start = 24.dp, end = 24.dp)
-                            .clickable {
-                                onLanguageSwitchClick()
+                        Text(
+                            text = stringResource(id = R.string.setting_qibla_title),
+                            modifier = Modifier.padding(start = 24.dp),
+                            color = RightLabelColor,
+                            fontFamily = katibehRegular,
+                            fontSize = 28.sp,
+                        )
 
-                                coroutineScope.launch {
-                                    //setPerAppLanguage()
-                                    dataStore.saveLanguageSelected("ar")
-                                } },
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(6.dp)
+                                .padding(top = 4.dp, start = 24.dp)
+                                .background(RightLabelColor)
+                        )
+                        CorrectQiblaDescription()
 
-                    )
-                     */
+                        /*
+                        // switch language settings
+                        AddSpace(20)
 
-                    // set location permission
-                    AddSpace(30)
-                    LocationSettingsSection(!areLocationPermissionsGranted())
+                        Text(
+                            text = stringResource(id = R.string.setting_language_title),
+                            modifier = Modifier.padding(start = 24.dp),
+                            color = RightLabelColor,
+                            fontFamily = katibehRegular,
+                            fontSize = 28.sp,
+                        )
+
+                        Box(
+                            modifier = Modifier.fillMaxWidth()
+                                .height(6.dp)
+                                .padding(top = 4.dp, start = 24.dp)
+                                .background(RightLabelColor)
+                        )
+                        AddSpace(10)
+
+                        val dataStore = PreferencesDataStore(LocalContext.current)
+                        val coroutineScope = rememberCoroutineScope()
+
+                        LanguageSwitcher(
+                            modifier = Modifier
+                                .height(60.dp)
+                                .padding(start = 24.dp, end = 24.dp)
+                                .clickable {
+                                    onLanguageSwitchClick()
+
+                                    coroutineScope.launch {
+                                        //setPerAppLanguage()
+                                        dataStore.saveLanguageSelected("ar")
+                                    } },
+
+                        )
+                         */
+
+                        // set location permission
+                        AddSpace(30)
+                        LocationSettingsSection(!areLocationPermissionsGranted())
+                    }
                 }
             }
         }
@@ -199,7 +220,9 @@ fun LocationSettingsSection(isVisible: Boolean) {
             AddSpace(10)
 
             androidx.compose.material.Button(
-                modifier = Modifier.padding(horizontal = 20.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = ColorBlue
                 ),
