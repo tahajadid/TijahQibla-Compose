@@ -109,7 +109,6 @@ class MainActivity : ComponentActivity(), SensorEventListener {
                 DefaultNavHost(
                     navController = navController,
                     degrees = degrees.value,
-                    pointerInitDegree = degrees.value,
                     isMagneticFieldSensorPresent = isMagneticFieldSensorPresent,
                     startDestination = screen
                 )

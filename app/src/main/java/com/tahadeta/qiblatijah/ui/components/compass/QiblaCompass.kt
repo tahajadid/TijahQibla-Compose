@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -35,9 +36,10 @@ import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 fun QiblaCompass(
     modifier: Modifier = Modifier,
     degrees: Int = 0,
-    pointerInitDegree : Int = 0,
+    pointerInitDegree : Int = 90,
     imageSrc: Int?,
     rotateCompass: Boolean,
+    isLocationCollected: Boolean,
 ) {
     DefaultCompass(
         modifier = modifier,
@@ -45,8 +47,11 @@ fun QiblaCompass(
         rotateCompass = rotateCompass
     ) { rotationAngle ->
 
+        // in case of location is collected we increase the value of alpha to 1F
         Column(
-            modifier = modifier,
+            modifier = modifier.alpha(
+                if(!isLocationCollected) 0.5F else 1F
+            ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -60,10 +65,12 @@ fun QiblaCompass(
             Box(){
                 // background image
                 Image(
-                    painter = painterResource(id = imageSrc ?: getTheRightImage(degrees,93)),
+                    painter = painterResource(
+                        id = imageSrc ?: getTheRightImage(degrees,pointerInitDegree)),
                     contentDescription = "compass image",
                     modifier = Modifier
                         .offset(0.dp, (-16).dp)
+                        .rotate(pointerInitDegree.toFloat())
                         .rotate(rotationAngle),
                 )
 
@@ -74,6 +81,7 @@ fun QiblaCompass(
                     modifier = Modifier
                         .offset(0.dp, (-16).dp)
                         // the first Rotation depending on the Lat and Lon of the user
+                        .rotate(pointerInitDegree.toFloat())
                         .rotate(pointerInitDegree.toFloat())
                         // the muttable angle rotation
                         .rotate(rotationAngle),
@@ -132,7 +140,8 @@ fun CompassAnimationPreview() {
     QiblaTijahTheme {
         QiblaCompass(
             imageSrc = R.drawable.correct_compass_bg,
-            rotateCompass = false
+            rotateCompass = false,
+            isLocationCollected = true
         )
     }
 }
