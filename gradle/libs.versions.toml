@@ -21,6 +21,9 @@ playServicesLocationversion = "21.1.0"
 
 locationversion= "21.1.0"
 accompanistPermissionsVersion = "0.35.0-alpha"
+firebaseCrashlyticsVersion = "19.2.1"
+googleGmsGoogleServicesVersion = "4.4.2"
+googleFirebaseCrashlyticsVersion = "3.0.2"
 
 [libraries]
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPagerIndicatorsVersion" }
@@ -53,8 +56,11 @@ accompanistPermissions = { module = "com.google.accompanist:accompanist-permissi
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore-preferences" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlyticsVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServicesVersion" }
+google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlyticsVersion" }
 

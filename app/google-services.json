@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "923121999711",
+    "project_id": "tijah-qibla",
+    "storage_bucket": "tijah-qibla.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923121999711:android:768257206ae65cbf2ee0ea",
+        "android_client_info": {
+          "package_name": "com.tahadeta.qiblatijah"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtpkZnBEcAbMgDCmA0CDXVe7889Tc7qHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
