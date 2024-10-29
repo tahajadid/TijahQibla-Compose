@@ -162,8 +162,6 @@ fun HomeScreen(
                         .padding(bottom = 40.dp)
                         .background(ScreenBgOpacityColor)
                 )
-
-                // LocationUtils.requestLocation(homeViewModel)
             }
         }
     }
