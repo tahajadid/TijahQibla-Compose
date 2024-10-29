@@ -19,18 +19,18 @@ class SplashViewModel @Inject constructor(
     private val _isLoading: MutableState<Boolean> = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading
 
-    private val _startDestination: MutableState<String> = mutableStateOf(Screen.Home.route)
+    private val _startDestination: MutableState<String> = mutableStateOf(Screen.Onboarding.route)
     val startDestination: State<String> = _startDestination
 
     init {
         viewModelScope.launch {
             repository.readOnBoardingState().collect { completed ->
-                if (completed) {
-                    Log.d("TestValue","isLoading (completed) in viewModelScope: "+isLoading.value)
-                    _startDestination.value = Screen.Home.route
-                } else {
-                    Log.d("TestValue","isLoading (!completed) in viewModelScope: "+isLoading.value)
+                if (!completed) {
+                    Log.d("TestValue","isLoading if(!completed) in viewModelScope: "+isLoading.value)
                     _startDestination.value = Screen.Onboarding.route
+                } else {
+                    Log.d("TestValue","isLoading else in viewModelScope: "+isLoading.value)
+                    _startDestination.value = Screen.Home.route
                 }
                 _isLoading.value = false
             }

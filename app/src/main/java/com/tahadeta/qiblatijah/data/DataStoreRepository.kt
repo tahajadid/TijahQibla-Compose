@@ -17,7 +17,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "on
 class DataStoreRepository(context: Context) {
 
     private object PreferencesKey {
-        val onBoardingKey = booleanPreferencesKey(name = "on_boarding")
+        val onBoardingKey = booleanPreferencesKey(name = "onboarding_is_passed")
     }
 
     private val dataStore = context.dataStore
