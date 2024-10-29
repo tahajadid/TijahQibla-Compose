@@ -94,12 +94,12 @@ fun QiblaCompass(
                 Spacer(modifier = Modifier.height(40.dp))
 
                 // add degree and direction values
-                DegreeAndDirection(degrees)
+                DegreeAndDirection(degrees, isLocationCollected)
 
                 // show message for the user
                 Text(
-                    text = stringResource(id = R.string.correct_direction)
-                            + " $pointerInitDegree°",
+                    text = if(!isLocationCollected) "" else
+                        stringResource(id = R.string.correct_direction) + " $pointerInitDegree°",
                     color = RightLabelColor,
                     fontFamily = katibehRegular,
                     fontSize = 24.sp)
@@ -109,13 +109,13 @@ fun QiblaCompass(
 }
 
 @Composable
-fun DegreeAndDirection(degrees: Int) {
+fun DegreeAndDirection(degrees: Int, isLocationCollected: Boolean) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "${degrees}º",
+            text = if(!isLocationCollected) "" else "${degrees}º",
             color = MaterialTheme.colors.onBackground,
             fontSize = 30.sp,
             fontWeight = FontWeight.SemiBold,
@@ -125,7 +125,8 @@ fun DegreeAndDirection(degrees: Int) {
         Spacer(modifier = Modifier.width(6.dp))
 
         Text(
-            text = "(${getDirectionsLabel(LocalContext.current, degrees)})",
+            text = if(!isLocationCollected) ""
+            else "(${getDirectionsLabel(LocalContext.current, degrees)})",
             color = MaterialTheme.colors.onBackground,
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
