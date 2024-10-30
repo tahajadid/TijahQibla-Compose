@@ -33,6 +33,27 @@ fun DefaultNavHost(
         startDestination = startDestination,
     ){
 
+
+        composable(route = Screen.Onboarding.route){
+            val dataStore = PreferencesDataStore(LocalContext.current)
+            val coroutineScope = rememberCoroutineScope()
+
+            OnBoardingScreen(
+                onStartClick = {
+                    /*
+                    coroutineScope.launch {
+                        dataStore.saveOnboardingPassed(true)
+                    }
+
+                     */
+                    navController.popBackStack()
+                    navController.navigate(Screen.Home.route)
+                },
+                navController
+            )
+        }
+
+
         composable(route = Screen.Home.route){
             HomeScreen(
                 degrees = degrees,
@@ -46,21 +67,6 @@ fun DefaultNavHost(
             )
         }
 
-        composable(route = Screen.Onboarding.route){
-            val dataStore = PreferencesDataStore(LocalContext.current)
-            val coroutineScope = rememberCoroutineScope()
-
-            OnBoardingScreen(
-                onStartClick = {
-                    coroutineScope.launch {
-                        dataStore.saveOnboardingPassed(true)
-                    }
-                    navController.popBackStack()
-                    navController.navigate(Screen.Home.route)
-                },
-                navController
-            )
-        }
 
         composable(route = Screen.Settings.route){
             SettingsScreen(

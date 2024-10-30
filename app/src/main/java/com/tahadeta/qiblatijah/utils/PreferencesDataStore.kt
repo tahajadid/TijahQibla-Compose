@@ -16,21 +16,9 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("s
 class PreferencesDataStore (val context: Context) {
 
     companion object {
-        val WIDGET_KEY = stringPreferencesKey("selected_widget")
         val LANG_SELECTED = stringPreferencesKey("selected_widget")
         val ONBOARDING_PASSED = booleanPreferencesKey("onboarding_passed")
 
-    }
-
-    val getWidgetName: Flow<String?> = context.dataStore.data
-        .map { preferences ->
-            preferences[WIDGET_KEY]
-        }
-
-    suspend fun saveWidgetName(name: String){
-        context.dataStore.edit { preferences ->
-            preferences[WIDGET_KEY] = name
-        }
     }
 
     val getOnboardingPassed: Flow<Boolean?> = context.dataStore.data
@@ -43,7 +31,6 @@ class PreferencesDataStore (val context: Context) {
             preferences[ONBOARDING_PASSED] = isPassed
         }
     }
-
 
 
     val getLanguageSelected: Flow<String?> = context.dataStore.data
