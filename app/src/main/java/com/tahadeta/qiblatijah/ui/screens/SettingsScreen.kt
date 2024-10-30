@@ -2,6 +2,9 @@
 
 package com.tahadeta.qiblatijah.ui.screens
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
@@ -37,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,6 +59,7 @@ import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.RightLabelColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.katibehRegular
+import com.tahadeta.qiblatijah.utils.Constants.WIKIPEDIA_LINK
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.areLocationPermissionsGranted
 
@@ -177,9 +182,31 @@ fun SettingsScreen(
                         )
                          */
 
-                        // set location permission
+                        // add location permission section
                         AddSpace(30)
                         LocationSettingsSection(!areLocationPermissionsGranted())
+
+
+                        // add source of the information section
+                        AddSpace(30)
+
+                        Text(
+                            text = stringResource(id = R.string.settings_info_title),
+                            modifier = Modifier.padding(start = 24.dp),
+                            color = RightLabelColor,
+                            fontFamily = katibehRegular,
+                            fontSize = 28.sp,
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(6.dp)
+                                .padding(top = 4.dp, start = 24.dp)
+                                .background(RightLabelColor)
+                        )
+
+                        SourceInfoSection()
                     }
                 }
             }
@@ -242,6 +269,41 @@ fun LocationSettingsSection(isVisible: Boolean) {
         }
     }
 }
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun SourceInfoSection(){
+    Row {
+        Text(
+            text = stringResource(id = R.string.settings_info_description),
+            modifier = Modifier
+                .padding(start = 24.dp, end = 16.dp, top = 16.dp)
+                .weight(0.85F),
+            color = ColorCorrect,
+            fontFamily = katibehRegular,
+            fontSize = 22.sp,
+            style = TextStyle(
+                lineHeight = 30.sp
+            )
+        )
+
+        Image(
+            painter = painterResource(
+                id = R.drawable.logo_wikipedia
+            ),
+            contentDescription = "Wikipedia",
+            modifier = Modifier
+                .size(40.dp)
+                .weight(0.15F)
+                .align(Alignment.CenterVertically)
+                .clickable {
+                    MainActivity.activityInstance.openUrl(WIKIPEDIA_LINK)
+                }
+        )
+    }
+
+}
+
 
 @Composable
 fun CorrectQiblaDescription(){

@@ -36,6 +36,8 @@
     <string name="setting_language_title">Changer la langue de votre app</string>
     <string name="setting_location_title">Autoriser l’acces a la localisation</string>
     <string name="setting_location_button">Donner access a la localisation</string>
+    <string name="settings_info_title">Source d’information</string>
+    <string name="settings_info_description">Vous pouvez consulter la source d’info en cliquant sur l’icon de Wikipédia</string>
 
     <string name="lang_ar">العربية</string>
     <string name="lang_fr">Français</string>
