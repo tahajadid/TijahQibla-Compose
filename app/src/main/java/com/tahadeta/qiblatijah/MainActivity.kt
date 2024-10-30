@@ -205,6 +205,11 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     }
 
 
+    fun openUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        this.startActivity(intent)
+    }
+
     private fun getDeviceLanguage(): String  {
         return LocaleListCompat
             .getDefault()

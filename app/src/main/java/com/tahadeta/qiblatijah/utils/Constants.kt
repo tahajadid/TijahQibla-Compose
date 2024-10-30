@@ -8,4 +8,6 @@ object Constants {
     const val KAABA_LAT = 21.4225
     const val KAABA_LON = 39.8262
 
+    const val WIKIPEDIA_LINK = "https://fr.wikipedia.org/wiki/Qibla"
+
 }
