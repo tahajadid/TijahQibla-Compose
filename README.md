@@ -9,6 +9,7 @@ The angle between the true north at a place and the qibla direction there can be
 
 ## Screens
 
-<img src="/demo/Screenshot_1.png" width="200" height="430"/>
-<img src="/demo/Screenshot_2.png" width="200" height="430"/>
-
+<div>
+  <img src="/demo/Screenshot_1.png" width="200" height="430"/>
+  <img src="/demo/Screenshot_2.png" width="200" height="430"/>
+</div>
