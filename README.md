@@ -8,3 +8,7 @@ The direction of Qibla at any point on the Earth's surface, assuming the Earth t
 The angle between the true north at a place and the qibla direction there can be obtained by solving the spherical triangle whose vertices are, the north pole, the intended place, and Makkah.
 
 ## Screens
+
+<img src="/demo/Screenshot_1.png" width="200" height="430"/>
+<img src="/demo/Screenshot_2.png" width="200" height="430"/>
+
