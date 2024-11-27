@@ -26,7 +26,7 @@ object FirestoreUtil {
                         Log.d("TestResult", "version : $remoteVersion")
                         // update UiState in homeView
                         homeViewModel.updateUpdateAppView(
-                            BuildConfig.VERSION_NAME.equals(remoteVersion)
+                            BuildConfig.VERSION_NAME.equals(remoteVersion.versionName)
                         )
                     }
                 }
