@@ -37,6 +37,7 @@ import com.tahadeta.qiblatijah.ui.components.compass.QiblaCompass
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgColor
 import com.tahadeta.qiblatijah.ui.theme.ScreenBgOpacityColor
+import com.tahadeta.qiblatijah.utils.firebaseUtils.FirestoreUtil.FetchVersionFromFirestore
 import com.tahadeta.qiblatijah.utils.compassUtils.calculateBearing
 import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 import com.tahadeta.qiblatijah.utils.locationUtils.LocationUtil.getLocationDevice
@@ -55,7 +56,6 @@ fun HomeScreen(
 ) {
 
     val homeUiState by homeViewModel.uiState.collectAsState()
-
 
     Scaffold(
         backgroundColor = ScreenBgColor,
@@ -99,20 +99,36 @@ fun HomeScreen(
         Box(modifier = modifier
             .fillMaxSize())
         {
+
+            // if the location is activated & coordinates and are fetched
             if(!homeUiState.isLocationCollected && homeUiState.isLocationActivated){
                 Column(modifier = modifier
                     .padding(bottom = 20.dp)
                     .align(Alignment.Center),
                     horizontalAlignment = Alignment.CenterHorizontally) {
 
-                    Text(text = "Prendre la localisation..")
+                    // Loader inside Compass for location
+                    LoadingLocationInsideCompass()
+                }
+            }
+
+            // check for version in store
+            FetchVersionFromFirestore(homeViewModel)
+
+            if(!homeUiState.showUpdatePopup){
+                Column(modifier = modifier
+                    .padding(bottom = 20.dp)
+                    .align(Alignment.Center),
+                    horizontalAlignment = Alignment.CenterHorizontally) {
+
+                    Text(text = "Test show popup..")
 
                     LinearProgressIndicator(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 40.dp),
-                        color = Color.Black,
-                        trackColor = Color.Gray,
+                        color = Color.Red,
+                        trackColor = Color.Green,
                     )
                 }
             }
@@ -165,6 +181,19 @@ fun HomeScreen(
             }
         }
     }
+}
+
+@Composable
+fun LoadingLocationInsideCompass() {
+    Text(text = "Test show popup..")
+
+    LinearProgressIndicator(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 40.dp),
+        color = Color.Red,
+        trackColor = Color.Green,
+        )
 }
 
 
