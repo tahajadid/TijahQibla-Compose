@@ -51,5 +51,9 @@
     <string name="dialog_location">Cette application nécessite une autorisation de localisation</string>
     <string name="dialog_saving">Permettre a sauvegarder</string>
 
+    <!-- Update App -->
+    <string name="update_app_title">Une nouvelle version est disponible sur le Store</string>
+    <string name="update_app_confirm">Mettre à jour</string>
+    <string name="update_app_cancel">Annuler</string>
 
 </resources>

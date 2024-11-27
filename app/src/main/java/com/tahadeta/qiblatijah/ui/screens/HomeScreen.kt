@@ -23,6 +23,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.ui.components.LocationRequestSectionHolder
+import com.tahadeta.qiblatijah.ui.components.UpdateAppDialog
 import com.tahadeta.qiblatijah.ui.components.customDialog.CustomDialogAlert
 import com.tahadeta.qiblatijah.ui.components.compass.QiblaCompass
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
@@ -56,6 +59,7 @@ fun HomeScreen(
 ) {
 
     val homeUiState by homeViewModel.uiState.collectAsState()
+    val openAlertDialog = remember { mutableStateOf(false) }
 
     Scaffold(
         backgroundColor = ScreenBgColor,
@@ -95,6 +99,7 @@ fun HomeScreen(
         }
     ) { padding ->
 
+
         // Linear Progress Indicator when the location is collecting
         Box(modifier = modifier
             .fillMaxSize())
@@ -109,27 +114,6 @@ fun HomeScreen(
 
                     // Loader inside Compass for location
                     LoadingLocationInsideCompass()
-                }
-            }
-
-            // check for version in store
-            FetchVersionFromFirestore(homeViewModel)
-
-            if(!homeUiState.showUpdatePopup){
-                Column(modifier = modifier
-                    .padding(bottom = 20.dp)
-                    .align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally) {
-
-                    Text(text = "Test show popup..")
-
-                    LinearProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 40.dp),
-                        color = Color.Red,
-                        trackColor = Color.Green,
-                    )
                 }
             }
 
@@ -179,20 +163,42 @@ fun HomeScreen(
                         .background(ScreenBgOpacityColor)
                 )
             }
+
+
+            // check for version in store
+            FetchVersionFromFirestore(homeViewModel)
+
+            if(homeUiState.showUpdatePopup){
+                Column(modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Center)) {
+
+                    // Loader inside Compass for location
+                    //UpdateAppDialog()
+
+                    UpdateAppDialog(
+                        onDismissRequest = { openAlertDialog.value = false },
+                        onConfirmation = {
+                            openAlertDialog.value = false
+                            println("Confirmation registered") // Add logic here to handle confirmation.
+                        },
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
 fun LoadingLocationInsideCompass() {
-    Text(text = "Test show popup..")
+    Text(text = "Prendre la localisation..")
 
     LinearProgressIndicator(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 40.dp),
-        color = Color.Red,
-        trackColor = Color.Green,
+        color = Color.Black,
+        trackColor = Color.Gray,
         )
 }
 

@@ -48,4 +48,10 @@
 
     <string name="dialog_location">Cette application nécessite une autorisation de localisation</string>
     <string name="dialog_saving">Permettre a sauvegarder</string>
+
+    <!-- Update App -->
+    <string name="update_app_title">إصدار جديد متوفر في المتجر</string>
+    <string name="update_app_confirm">تحديث</string>
+    <string name="update_app_cancel">إلغاء</string>
+
 </resources>
