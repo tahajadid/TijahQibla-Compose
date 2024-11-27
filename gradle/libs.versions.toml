@@ -22,6 +22,8 @@ playServicesLocationversion = "21.1.0"
 locationversion= "21.1.0"
 accompanistPermissionsVersion = "0.35.0-alpha"
 firebaseCrashlyticsVersion = "19.2.1"
+firebaseFirestoreVersion = "25.1.1"
+
 googleGmsGoogleServicesVersion = "4.4.2"
 googleFirebaseCrashlyticsVersion = "3.0.2"
 
@@ -57,6 +59,7 @@ androidx-navigation-compose = { module = "androidx.navigation:navigation-compose
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore-preferences" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlyticsVersion" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestoreVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

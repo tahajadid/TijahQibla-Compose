@@ -13,6 +13,9 @@ class HomeViewModel : ViewModel() {
     val uiState: StateFlow<CompassUiState> = _uiState.asStateFlow()
 
 
+    /**
+     * function that update the state of location is collected
+     */
     fun updateLocationCollected(isLocationCollected: Boolean){
         _uiState.update { currentState ->
             currentState.copy(
@@ -21,10 +24,24 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    /**
+     * function that update the state of location permission is accepted
+     */
     fun updateLocationView(isLocationAccepted: Boolean){
         _uiState.update { currentState ->
             currentState.copy(
                 isLocationActivated = isLocationAccepted
+            )
+        }
+    }
+
+    /**
+     * function that update the state of showing the popup View for update
+     */
+    fun updateUpdateAppView(showUpdatePopup: Boolean){
+        _uiState.update { currentState ->
+            currentState.copy(
+                showUpdatePopup = showUpdatePopup
             )
         }
     }
