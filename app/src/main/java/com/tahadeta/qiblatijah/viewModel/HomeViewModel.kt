@@ -38,10 +38,11 @@ class HomeViewModel : ViewModel() {
     /**
      * function that update the state of showing the popup View for update
      */
-    fun updateUpdateAppView(showUpdatePopup: Boolean){
+    fun updateUpdateAppView(showUpdatePopup: Boolean, appUrl: String){
         _uiState.update { currentState ->
             currentState.copy(
-                showUpdatePopup = showUpdatePopup
+                showUpdatePopup = showUpdatePopup,
+                appUrl = appUrl
             )
         }
     }
