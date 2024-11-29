@@ -6,5 +6,6 @@ data class CompassUiState(
     val isLocationCollected: Boolean = false,
     val isLocationActivated: Boolean = false,
     val isOnboardingCompleted: Boolean = false,
-    val showUpdatePopup: Boolean = false
+    val showUpdatePopup: Boolean = false,
+    val appUrl: String = ""
 )

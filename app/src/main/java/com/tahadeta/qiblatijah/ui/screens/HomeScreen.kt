@@ -1,6 +1,9 @@
 package com.tahadeta.qiblatijah.ui.screens
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,10 +31,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.tahadeta.qiblatijah.MainActivity
 import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.ui.components.LocationRequestSectionHolder
 import com.tahadeta.qiblatijah.ui.components.UpdateAppDialog
@@ -48,6 +54,7 @@ import com.tahadeta.qiblatijah.utils.userLatitude
 import com.tahadeta.qiblatijah.utils.userLongitude
 import com.tahadeta.qiblatijah.viewModel.HomeViewModel
 
+@OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -176,9 +183,12 @@ fun HomeScreen(
                     // Loader inside Compass for location
                     //UpdateAppDialog()
 
+                    val intent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(homeUiState.appUrl)) }
+
                     UpdateAppDialog(
                         onDismissRequest = { openAlertDialog.value = false },
                         onConfirmation = {
+                            MainActivity.activityInstance.startActivity(intent)
                             openAlertDialog.value = false
                             println("Confirmation registered") // Add logic here to handle confirmation.
                         },
