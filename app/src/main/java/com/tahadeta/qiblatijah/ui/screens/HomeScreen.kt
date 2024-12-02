@@ -171,7 +171,6 @@ fun HomeScreen(
                 )
             }
 
-
             // check for version in store
             FetchVersionFromFirestore(homeViewModel)
 
@@ -180,19 +179,20 @@ fun HomeScreen(
                     .padding(horizontal = 20.dp)
                     .align(Alignment.Center)) {
 
-                    // Loader inside Compass for location
-                    //UpdateAppDialog()
+                    if(openAlertDialog.value.equals(false)) {
+                        val intent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(homeUiState.appUrl)) }
 
-                    val intent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(homeUiState.appUrl)) }
+                        UpdateAppDialog(
+                            onDismissRequest = {
+                                openAlertDialog.value = true
+                            },
+                            onConfirmation = {
+                                MainActivity.activityInstance.startActivity(intent)
+                                openAlertDialog.value = true
+                            },
+                        )
+                    }
 
-                    UpdateAppDialog(
-                        onDismissRequest = { openAlertDialog.value = false },
-                        onConfirmation = {
-                            MainActivity.activityInstance.startActivity(intent)
-                            openAlertDialog.value = false
-                            println("Confirmation registered") // Add logic here to handle confirmation.
-                        },
-                    )
                 }
             }
         }
