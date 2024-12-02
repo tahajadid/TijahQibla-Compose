@@ -61,14 +61,9 @@ fun OnBoardingScreen(
             pagerState = pagerState
         )
         FinishButton(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).height(40.dp),
             pagerState = pagerState,
         ) {
-            // onStartClick()
-            //homeViewModel.saveOnBoardingState(completed = true)
-            //navController.popBackStack()
-            // navController.navigate(ScreenRoutes.Home.route)
-
             onBoardingViewModel.saveOnBoardingState(completed = true)
             navController.popBackStack()
             navController.navigate(Screen.Home.route)

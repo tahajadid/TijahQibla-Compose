@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.tahadeta.qiblatijah.MainActivity
+import com.tahadeta.qiblatijah.ui.screens.HelpScreen
 import com.tahadeta.qiblatijah.ui.screens.HomeScreen
 import com.tahadeta.qiblatijah.ui.screens.OnBoardingScreen
 import com.tahadeta.qiblatijah.ui.screens.SettingsScreen
@@ -35,17 +36,9 @@ fun DefaultNavHost(
 
 
         composable(route = Screen.Onboarding.route){
-            val dataStore = PreferencesDataStore(LocalContext.current)
-            val coroutineScope = rememberCoroutineScope()
 
             OnBoardingScreen(
                 onStartClick = {
-                    /*
-                    coroutineScope.launch {
-                        dataStore.saveOnboardingPassed(true)
-                    }
-
-                     */
                     navController.popBackStack()
                     navController.navigate(Screen.Home.route)
                 },
@@ -62,7 +55,7 @@ fun DefaultNavHost(
                     navController.navigate(Screen.Settings.route)
                 },
                 onOnboardingClick = {
-                    navController.navigate(Screen.Onboarding.route)
+                    navController.navigate(Screen.Help.route)
                 }
             )
         }
@@ -75,6 +68,12 @@ fun DefaultNavHost(
                     changeLanguage(MainActivity.activityInstance,"ar")
                     navController.popBackStack()
                 }
+            )
+        }
+
+        composable(route = Screen.Help.route){
+            HelpScreen(
+                onArrowBackClick = { navController.popBackStack() },
             )
         }
 

@@ -15,6 +15,7 @@ val ScreenBgOpacityColor = Color(0xBCECF8F6)
 
 val ColorCorrect = Color(0xFF7AA95C)
 val RightLabelColor = Color(0xFF2E5317)
+val RightBrownColor = Color(0xFF9B6D2A)
 val ColorWrong = Color(0xFFFEEAA1)
 
 val ColorBlue = Color(0xFF1173A0)
