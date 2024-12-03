@@ -54,4 +54,8 @@
     <string name="update_app_confirm">تحديث</string>
     <string name="update_app_cancel">إلغاء</string>
 
+    <!-- Help Screen -->
+    <string name="help_content_title">كيفية الحصول على اتجاه القبلة؟</string>
+    <string name="help_content_description">قم بتدوير الجهاز إلى اليمين أو اليسار في حركة دائرية حتى يشير السهم البني إلى الأعلى نحو القبلة ويظهر لون أخضر واضح للقرص</string>
+
 </resources>

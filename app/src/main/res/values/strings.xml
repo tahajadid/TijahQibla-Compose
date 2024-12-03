@@ -56,4 +56,10 @@
     <string name="update_app_confirm">Mettre à jour</string>
     <string name="update_app_cancel">Annuler</string>
 
+
+
+    <!-- Help Screen -->
+    <string name="help_content_title">Comment obtenir la direction de la Qibla?</string>
+    <string name="help_content_description">Faites pivoter l’appareil vers la droite ou vers la gauche dans un mouvement circulaire jusqu’à ce que la flèche marron pointe vers le haut vers la Qibla et qu’une couleur verte claire du cercle apparaisse à jour</string>
+
 </resources>
