@@ -36,7 +36,7 @@ import com.tahadeta.qiblatijah.utils.compassUtils.getTheRightImage
 fun QiblaCompass(
     modifier: Modifier = Modifier,
     degrees: Int = 0,
-    pointerInitDegree : Int = 90,
+    pointerInitDegree : Int = 20,
     imageSrc: Int?,
     rotateCompass: Boolean,
     isLocationCollected: Boolean,
@@ -71,6 +71,8 @@ fun QiblaCompass(
                     modifier = Modifier
                         .offset(0.dp, (-16).dp)
                         .rotate(pointerInitDegree.toFloat())
+                        // adding this additional degree to be aligned with kaaba image on the top
+                        .rotate(90-pointerInitDegree.toFloat())
                         .rotate(rotationAngle),
                 )
 
@@ -83,6 +85,8 @@ fun QiblaCompass(
                         // the first Rotation depending on the Lat and Lon of the user
                         .rotate(pointerInitDegree.toFloat())
                         .rotate(pointerInitDegree.toFloat())
+                        // adding this additional degree to be aligned with kaaba image on the top
+                        .rotate(90-pointerInitDegree.toFloat())
                         // the muttable angle rotation
                         .rotate(rotationAngle),
                 )

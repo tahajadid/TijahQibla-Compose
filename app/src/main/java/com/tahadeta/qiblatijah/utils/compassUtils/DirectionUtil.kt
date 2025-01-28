@@ -1,10 +1,14 @@
 package com.tahadeta.qiblatijah.utils.compassUtils
 
 import android.content.Context
+import android.util.Log
 import com.tahadeta.qiblatijah.R
 import com.tahadeta.qiblatijah.utils.Constants.KAABA_LAT
 import com.tahadeta.qiblatijah.utils.Constants.KAABA_LON
 
+/**
+ * function that returns the direction Label depending on degree
+ */
 fun getDirectionsLabel(
     context: Context,
     degrees: Int,
@@ -22,6 +26,9 @@ fun getDirectionsLabel(
     }
 
 
+/**
+ * function that calculate bearing for the right angle
+ */
 fun calculateBearing(
     lat1: Double,
     lon1: Double): Double {
@@ -34,5 +41,6 @@ fun calculateBearing(
             Math.sin(phi1) * Math.cos(phi2) * Math.cos(deltaLambda)
 
     val theta = Math.atan2(y, x)
+    Log.d("TestTheta","theta : "+theta.toString())
     return (Math.toDegrees(theta) + 360) % 360 // Normalize to 0-360 degrees
 }

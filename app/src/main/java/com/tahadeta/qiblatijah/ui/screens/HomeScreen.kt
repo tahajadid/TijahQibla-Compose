@@ -137,7 +137,6 @@ fun HomeScreen(
 
                 // calculating the right kaaba angle
                 val pointerInitDegree = calculateBearing(userLatitude?:0.0,userLongitude?:0.0).toInt()
-                Log.d("TestpointerInitDegree","pointerInitDegree : "+ pointerInitDegree)
 
                 // in case of getting Lat & Long of the user we show the clear Compass
                 QiblaCompass(
