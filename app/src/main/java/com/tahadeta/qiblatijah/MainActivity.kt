@@ -23,6 +23,7 @@ import com.tahadeta.qiblatijah.ui.navigation.DefaultNavHost
 import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import android.os.LocaleList
 import android.provider.Settings
+import android.text.Html
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -221,19 +222,20 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         try {
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "text/plain"
+            val sharingMessage = getString(R.string.sharing_message)
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "TIJAH QIBLA")
-            var shareMessage = "\nJe te recommande cette application\n\n"
+            var shareMessage = "$sharingMessage\n"
             val link = APP_LINK
             shareMessage =
                 """
                 $shareMessage $link
                     """.trimIndent()
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
-            startActivity(Intent.createChooser(shareIntent, "choose one"))
+            startActivity(Intent.createChooser(shareIntent, ""))
         } catch (e: Exception) {
-            // e.toString();
+            Log.e("ShareLink", "Error sharing link", e)
+            Toast.makeText(this, "Error sharing link", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     /**
@@ -242,7 +244,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     fun copyAppLink(){
         val clipboardManager = this.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         val clipData = ClipData.newPlainText("label", APP_LINK)
-        Toast.makeText(this.applicationContext, "text copié", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.applicationContext, R.string.copied_message, Toast.LENGTH_SHORT).show()
         clipboardManager.setPrimaryClip(clipData)
     }
 

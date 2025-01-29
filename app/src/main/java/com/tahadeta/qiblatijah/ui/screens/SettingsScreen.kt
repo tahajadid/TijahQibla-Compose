@@ -184,7 +184,7 @@ fun SettingsScreen(
                          */
 
                         // add location permission section
-                        AddSpace(30)
+                        if(!areLocationPermissionsGranted())AddSpace(30)
                         LocationSettingsSection(!areLocationPermissionsGranted())
 
 
@@ -305,7 +305,7 @@ fun SourceInfoSection(){
             fontFamily = katibehRegular,
             fontSize = 22.sp,
             style = TextStyle(
-                lineHeight = 30.sp
+                lineHeight = 24.sp
             )
         )
 
@@ -336,10 +336,11 @@ fun ShareAppSection(){
             modifier = Modifier
                 .padding(start = 24.dp, end = 16.dp, top = 16.dp),
             color = ColorCorrect,
+            textAlign = TextAlign.Justify,
             fontFamily = katibehRegular,
             fontSize = 22.sp,
             style = TextStyle(
-                lineHeight = 30.sp
+                lineHeight = 24.sp
             )
         )
 
@@ -389,7 +390,7 @@ fun ShareAppSection(){
                 fontFamily = katibehRegular,
                 fontSize = 20.sp,
                 style = TextStyle(
-                    lineHeight = 30.sp
+                    lineHeight = 24.sp
                 )
             )
 
@@ -404,7 +405,7 @@ fun ShareAppSection(){
                 fontFamily = katibehRegular,
                 fontSize = 20.sp,
                 style = TextStyle(
-                    lineHeight = 30.sp
+                    lineHeight = 24.sp
                 )
             )
         }
@@ -421,10 +422,11 @@ fun CorrectQiblaDescription(){
         text = stringResource(id = R.string.settings_qibla_description),
         modifier = Modifier.padding(start = 24.dp, end = 16.dp, top = 16.dp),
         color = ColorCorrect,
+        textAlign = TextAlign.Justify,
         fontFamily = katibehRegular,
         fontSize = 22.sp,
         style = TextStyle(
-            lineHeight = 30.sp
+            lineHeight = 24.sp
         )
     )
 }

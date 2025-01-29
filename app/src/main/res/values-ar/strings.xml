@@ -40,6 +40,12 @@
     <string name="settings_sharing_title">Partage de l’application</string>
     <string name="settings_sharing_description">Vous pouvez partagez l’application avec vos proches en cliquant sur l’icon</string>
 
+    <string name="share_recommendation">Je te recommande cette application</string>
+    <string name="share_chooser_title">Choose an app to share</string>
+
+    <string name="sharing_message">Je te recommande cette application</string>
+    <string name="copied_message">Text copié</string>
+
     <string name="lang_ar">العربية</string>
     <string name="lang_fr">Français</string>
 
