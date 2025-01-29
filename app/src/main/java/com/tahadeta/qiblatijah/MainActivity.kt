@@ -2,6 +2,8 @@ package com.tahadeta.qiblatijah
 
 import android.content.Context
 import android.app.LocaleManager
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -22,17 +24,16 @@ import com.tahadeta.qiblatijah.ui.theme.QiblaTijahTheme
 import android.os.LocaleList
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.tahadeta.qiblatijah.utils.Constants.APP_LINK
 import com.tahadeta.qiblatijah.viewModel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -205,9 +206,44 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     }
 
 
+    /**
+     * function that open wikipedia link
+     */
     fun openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         this.startActivity(intent)
+    }
+
+    /**
+     * function that create an Intent to share the app link
+     */
+    fun shareAppLink() {
+        try {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "text/plain"
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "TIJAH QIBLA")
+            var shareMessage = "\nJe te recommande cette application\n\n"
+            val link = APP_LINK
+            shareMessage =
+                """
+                $shareMessage $link
+                    """.trimIndent()
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+            startActivity(Intent.createChooser(shareIntent, "choose one"))
+        } catch (e: Exception) {
+            // e.toString();
+        }
+
+    }
+
+    /**
+     * function that add the app link in clipboard
+     */
+    fun copyAppLink(){
+        val clipboardManager = this.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("label", APP_LINK)
+        Toast.makeText(this.applicationContext, "text copié", Toast.LENGTH_SHORT).show()
+        clipboardManager.setPrimaryClip(clipData)
     }
 
     private fun getDeviceLanguage(): String  {

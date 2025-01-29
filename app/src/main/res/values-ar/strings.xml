@@ -37,6 +37,8 @@
     <string name="setting_location_button">السماح بالوصول إلى الموقع</string>
     <string name="settings_info_title">Source d’information</string>
     <string name="settings_info_description">Vous pouvez consulter la source d’info en cliquant sur l’icon de Wikipédia</string>
+    <string name="settings_sharing_title">Partage de l’application</string>
+    <string name="settings_sharing_description">Vous pouvez partagez l’application avec vos proches en cliquant sur l’icon</string>
 
     <string name="lang_ar">العربية</string>
     <string name="lang_fr">Français</string>
