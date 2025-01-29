@@ -40,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
@@ -207,6 +208,27 @@ fun SettingsScreen(
                         )
 
                         SourceInfoSection()
+
+                        // add source of the information section
+                        AddSpace(30)
+
+                        Text(
+                            text = stringResource(id = R.string.settings_sharing_title),
+                            modifier = Modifier.padding(start = 24.dp),
+                            color = RightLabelColor,
+                            fontFamily = katibehRegular,
+                            fontSize = 28.sp,
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(6.dp)
+                                .padding(top = 4.dp, start = 24.dp)
+                                .background(RightLabelColor)
+                        )
+
+                        ShareAppSection()
                     }
                 }
             }
@@ -301,6 +323,94 @@ fun SourceInfoSection(){
                 }
         )
     }
+
+}
+
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun ShareAppSection(){
+    Column {
+        Text(
+            text = stringResource(id = R.string.settings_sharing_description),
+            modifier = Modifier
+                .padding(start = 24.dp, end = 16.dp, top = 16.dp),
+            color = ColorCorrect,
+            fontFamily = katibehRegular,
+            fontSize = 22.sp,
+            style = TextStyle(
+                lineHeight = 30.sp
+            )
+        )
+
+        Row(
+            modifier = Modifier.padding(top = 10.dp)
+        ) {
+            Image(
+                painter = painterResource(
+                    id = R.drawable.copy
+                ),
+                contentDescription = "copyIcon",
+                modifier = Modifier
+                    .size(32.dp)
+                    .weight(0.5F)
+                    .align(Alignment.CenterVertically)
+                    .clickable {
+                        MainActivity.activityInstance.copyAppLink()
+                    }
+            )
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.share
+                ),
+                contentDescription = "shareIcon",
+                modifier = Modifier
+                    .size(32.dp)
+                    .weight(0.5F)
+                    .align(Alignment.CenterVertically)
+                    .clickable {
+                        MainActivity.activityInstance.shareAppLink()
+                    }
+            )
+        }
+
+
+        Row {
+
+            Text(
+                text = "Copier",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 24.dp, end = 16.dp, top = 16.dp)
+                    .weight(0.5F),
+                textAlign = TextAlign.Center,
+                color = Color.Black,
+                fontFamily = katibehRegular,
+                fontSize = 20.sp,
+                style = TextStyle(
+                    lineHeight = 30.sp
+                )
+            )
+
+            Text(
+                text = "Partager",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start =10.dp, end = 16.dp, top = 16.dp)
+                    .weight(0.5F),
+                textAlign = TextAlign.Center,
+                color = Color.Black,
+                fontFamily = katibehRegular,
+                fontSize = 20.sp,
+                style = TextStyle(
+                    lineHeight = 30.sp
+                )
+            )
+        }
+
+    }
+
 
 }
 

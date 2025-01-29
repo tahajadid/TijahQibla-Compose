@@ -9,5 +9,6 @@ object Constants {
     const val KAABA_LON = 39.8262
 
     const val WIKIPEDIA_LINK = "https://fr.wikipedia.org/wiki/Qibla"
+    const val APP_LINK = "https://play.google.com/store/apps/details?id=com.tahadeta.qiblatijah"
 
 }
